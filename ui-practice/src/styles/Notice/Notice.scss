@@ -1,0 +1,72 @@
+.NoticeContainer{
+    width: 1280px;
+    height: auto;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    .NoticeTitleBox{
+        display: flex;
+        align-items: center;
+        width: 80%;
+        height: 10vh;
+        margin: auto;
+        border-radius: 1rem;
+        background-color: #A193FB;
+        // background-color: #bcbec2;
+        color: white;
+        font-weight: 500;
+        font-size: 1.75rem;
+        .NoticeTitle{
+            padding-left: 3%;
+            padding-right: 3%;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 60%;
+        }
+
+        .NoticeSubcontents{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 40%;
+        }
+    }
+    .NoticeMiddleBox{
+        display: flex;
+        align-items: center;
+        margin: auto;
+        margin-top: 1%;
+        width: 80%;
+        height: 6vh;
+
+        .CreateForm{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 10%;
+            height: 80%;
+            text-decoration: none;
+            color: white;
+            background-color: #0090F9;
+            border-radius: 0.5rem;
+            margin-left: auto;
+            &:hover{
+                background-color: #0B7FD3;
+            }
+            .PencilLogo{
+                width: 1rem;
+                height: 1rem;
+                margin-right: 0.25rem;
+            }
+            .Write{
+                font-size: .875rem;
+            }
+        }
+    }
+    .NoticeListBox{
+        width: 80%;
+        margin: auto;
+        margin-top: 1%;
+    }
+}

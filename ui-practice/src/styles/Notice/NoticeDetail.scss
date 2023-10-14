@@ -1,0 +1,72 @@
+.NoticeDetailContainer{
+    width: 1280px;
+    height: auto;
+    margin: auto;
+    transform : rotate(0.04deg); 
+    .NoticeDetailHeader{
+        width: 80%;
+        margin: auto;
+        padding-top: 3%;
+        height: auto;
+        border-bottom: 0.1rem solid #D2D4D9;
+        font-weight: 600;
+        .NoticeCategory{
+            font-size: large;
+            color: #757575;
+        }
+        .NoticeDetailInfo{
+            display: flex;
+            width: 100%;
+            height: 1.75rem;
+            padding-bottom: 2.5%;
+            .NoticeMyProfile{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.75rem;
+                border-radius: 50%;
+                background-color: red;
+                font-size: 5%;
+                color: white;
+                margin-right: 1%;
+            }
+            .NoticeWriter{
+                display: flex;
+                align-items: center;
+                color: #424242;
+                font-size: large;
+            }
+            .NoticeEyeIcon{
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-left: auto;
+                width: 2%;
+                height:  90%;
+            }
+            .NoticeWatchCnt{
+                display: flex;
+                align-items: center;
+                margin-left: 0.5%;
+                margin-right: 2%;
+                font-size: 1.125rem;
+            }
+            .NoticeTime{
+                display: flex;
+                align-items: center;
+                font-size: 1.125rem;
+            }
+        }
+    }
+    .NoticeContents{
+        width: 80%;
+        margin: auto;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+        height: auto;
+        border-bottom: 0.1rem solid #D2D4D9;
+    }
+    .NoticeComment{
+        width: 80%;
+        margin: auto;
+    }
+}
