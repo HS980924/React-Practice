@@ -22,6 +22,8 @@ function App() {
             <Route path='/shop' element={<Main/>}/>
             <Route path='/login' element={<Main/>}/>
             <Route path='/signup' element={<Main/>}/>
+            <Route path='/search' element={<Main/>}/>
+            <Route path='*' element={<Main/>}/>
           </Routes>
         </div>
         <Footer/>

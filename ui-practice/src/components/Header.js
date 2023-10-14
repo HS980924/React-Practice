@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiFillGithub } from "react-icons/ai";
 import '../styles/Header/Header.scss';
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const path = location.pathname.split('/')[1];
 
     const [ isLoggedIn, setIsLoggedIn ] = useState(true);
-    const [ menuId, setMenuId ] = useState(null);
     const [ searchContent, setSearchContent ] = useState(null);
 
     const menus = [
@@ -53,7 +54,7 @@ const Header = () => {
     return(
         <div className='HeaderContainer'>
             <div className='HeaderBox'>
-                <Link to='/' className='LogoLink' onClick={()=>setMenuId(null)}>
+                <Link to='/' className='LogoLink'>
                     <img className='LogoImage' alt='Logo_Image' src='img/logo_title.png'/>
                 </Link>
                 <div className='MenuBox'>
@@ -61,8 +62,7 @@ const Header = () => {
                         menus.map((menu) =>
                             <Link to={menu.link} 
                                 key={menu.id} 
-                                className={ menu.id === menuId ? "SelectedMenu" : "Menu"}
-                                onClick={()=>setMenuId(menu.id)}
+                                className={ menu.link === path ? "SelectedMenu" : "Menu"}
                                 >{menu.title}</Link>
                         )
                     }

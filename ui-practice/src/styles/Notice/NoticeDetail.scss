@@ -1,10 +1,10 @@
 .NoticeDetailContainer{
-    width: 1280px;
+    width: 1080px;
     height: auto;
     margin: auto;
     transform : rotate(0.04deg); 
     .NoticeDetailHeader{
-        width: 80%;
+        width: 100%;
         margin: auto;
         padding-top: 3%;
         height: auto;
@@ -24,8 +24,9 @@
                 align-items: center;
                 justify-content: center;
                 width: 1.75rem;
+                height: 1.75rem;
                 border-radius: 50%;
-                background-color: red;
+                background-color: #0090F9;
                 font-size: 5%;
                 color: white;
                 margin-right: 1%;
@@ -58,7 +59,7 @@
         }
     }
     .NoticeContents{
-        width: 80%;
+        width: 100%;
         margin: auto;
         padding-top: 2.5rem;
         padding-bottom: 2.5rem;
@@ -66,7 +67,16 @@
         border-bottom: 0.1rem solid #D2D4D9;
     }
     .NoticeComment{
-        width: 80%;
+        width: 100%;
         margin: auto;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        
+        .CommentCnt{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-size: large;
+            font-weight: bold;
+        }
     }
 }
