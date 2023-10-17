@@ -3,6 +3,7 @@ import Footer from './components/Footer';
 import Main from './pages/Main';
 import Notice from './pages/Notice';
 import NoticeDetail from './pages/NoticeDetail';
+import NoticeCreate from './pages/NoticeCreate';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -17,6 +18,7 @@ function App() {
             <Route path='/' element={<Main/>}/>
             <Route path='/notice' element={<Notice/>}/>
             <Route path='/notice/detail/:id' element={<NoticeDetail/>}/>
+            <Route path='/notice/create' element={<NoticeCreate/>}/>
             <Route path='/event' element={<Main/>}/>
             <Route path='/til' element={<Main/>}/>
             <Route path='/shop' element={<Main/>}/>
