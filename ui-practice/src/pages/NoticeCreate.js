@@ -1,8 +1,9 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FcCancel } from 'react-icons/fc';
+import { MdOutlineCancel } from 'react-icons/md';
 import '../styles/Notice/NoticeCreate.scss';
+import TextEditor from '../components/TextEditor';
 
 const NoticeCreate = () =>{
 
@@ -49,7 +50,8 @@ const NoticeCreate = () =>{
     }
 
     const onHandleSave = () => {
-        
+        console.log('제목',title);
+        console.log('내용',content);
     }
 
     return(
@@ -71,9 +73,7 @@ const NoticeCreate = () =>{
             </div>
             <div className='NoticeContentBox'>
                 <p className='p'>본문</p>
-                <textarea 
-                    className='NoticeCreateContent'
-                    onChange={onHandleContent}/>
+                <TextEditor value={content} setValue={setContent}/>
             </div>
             <div className='FileUploadBox'>
             <input 
@@ -92,7 +92,7 @@ const NoticeCreate = () =>{
                     fileNameList?.map((file, idx) => (
                         <div key={idx} className='FileItem'>
                             <div className='FileName'>{file}</div>
-                            <FcCancel className='FileDelete' onClick={() => onHandleDeleteFile(idx)}/>
+                            <MdOutlineCancel className='FileDelete' onClick={() => onHandleDeleteFile(idx)}/>
                         </div>
                     ))
                 }

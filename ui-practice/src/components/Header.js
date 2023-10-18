@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiFillGithub } from "react-icons/ai";
 import '../styles/Header/Header.scss';
+import LoginModal from './LoginModal';
 
 const Header = () => {
 
@@ -9,8 +10,9 @@ const Header = () => {
     const location = useLocation();
     const path = location.pathname.split('/')[1];
 
-    const [ isLoggedIn, setIsLoggedIn ] = useState(true);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
     const [ searchContent, setSearchContent ] = useState(null);
+    const [ isLoginModal, setIsLoginModal ] = useState(false);
 
     const menus = [
         {
@@ -50,6 +52,15 @@ const Header = () => {
             navigate(`/search?query=${searchContent}`);
         }
     }
+    
+    const onHandleLoginModal = () =>{
+        setIsLoginModal(true);
+    }
+    
+    const onCancelLoginModal = () =>{
+        setIsLoginModal(false);
+    }
+
 
     return(
         <div className='HeaderContainer'>
@@ -85,14 +96,14 @@ const Header = () => {
                     </div>
                     :
                     <div className='ButtonBox'>
-                        <Link to='https://github.com/Pray2U' target="_blank" rel="noopener noreferrer" className='GithubLink'>
-                            <AiFillGithub className='GithubIcon'/>
-                        </Link>
-                        <Link to='/login' className='LoginButton'>로그인</Link>
+                        <div className='LoginButton' onClick={()=>onHandleLoginModal()}>로그인</div>
                         <Link to='/signup' className='SignUpButton'>회원가입</Link>
                     </div>
                 }
             </div>
+            {
+                isLoginModal ? <LoginModal onCancel={onCancelLoginModal}/> : <></>
+            }
         </div>
     )
 

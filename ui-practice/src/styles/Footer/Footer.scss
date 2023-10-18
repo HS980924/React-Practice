@@ -1,8 +1,9 @@
+*{
+    font-family : 'gulim', 'gothic';
+}
 .FooterContaier{
     display: flex;
-    // height: 10rem;
     border-top: 1.75px solid #a5a7aa;
-    transform : rotate(0.04deg); 
 
     .FooterBox{
         display: flex;
@@ -10,7 +11,6 @@
         height: 100%;
         margin: auto;
         bottom : 0;
-        // background-color: #10012F;
         .FooterTitleBox{
             width: 15%;
             height: 100%;

@@ -6,9 +6,8 @@
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
     width: 100%;
-    border-radius: 0.5rem;
     border: 0.1rem solid #D2D4D9;
-    transform : rotate(0.04deg); 
+    border-radius: 0.5rem;
     .CommentMyInfo{
         display: flex;
         align-items: center;
@@ -32,7 +31,6 @@
             align-items: center;
             justify-content: center;
             margin-left: 0.5rem;
-            // width: 5rem;
         }
     }
     .CommentInfoBox{
@@ -44,7 +42,6 @@
             word-break: break-word;
             width: 95%;
             font-size: 1rem;
-            font-family: 'Raleway', sans-serif;
             margin: 1rem;
             margin-top: 0.5rem;
             height: 5rem;
