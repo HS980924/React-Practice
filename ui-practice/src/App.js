@@ -4,10 +4,14 @@ import Main from './pages/Main';
 import Notice from './pages/Notice';
 import NoticeDetail from './pages/NoticeDetail';
 import NoticeCreate from './pages/NoticeCreate';
-import Reconfirm from './components/Reconfirm';
+import Til from './pages/Til';
+import TilCreate from './pages/TilCreate';
+import Shop from './pages/Shop';
+import Event from './pages/Event';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
+
+// import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   return (
@@ -20,9 +24,10 @@ function App() {
             <Route path='/notice' element={<Notice/>}/>
             <Route path='/notice/detail/:id' element={<NoticeDetail/>}/>
             <Route path='/notice/create' element={<NoticeCreate/>}/>
-            <Route path='/event' element={<Main/>}/>
-            <Route path='/til' element={<Reconfirm message={"삭제하시겠습니까?"} button1='취소' button2='삭제'/>}/>
-            <Route path='/shop' element={<Main/>}/>
+            <Route path='/event' element={<Event/>}/>
+            <Route path='/til' element={<Til/>}/>
+            <Route path='/til/create' element={<TilCreate/>}/>
+            <Route path='/shop' element={<Shop/>}/>
             <Route path='/login' element={<Main/>}/>
             <Route path='/signup' element={<Main/>}/>
             <Route path='/search' element={<Main/>}/>

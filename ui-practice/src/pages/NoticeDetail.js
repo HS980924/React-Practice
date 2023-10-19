@@ -42,8 +42,8 @@ const NoticeDetail = () =>{
     return(
         <div className="NoticeDetailContainer">
             <div className="NoticeDetailHeader">
-                <div className="NoticeCategory">공지사항&nbsp;&nbsp;Notice</div>
-                <h1>{noticeInfo?.title}</h1>
+                <p className="NoticeCategory">공지사항&nbsp;&nbsp;Notice</p>
+                <h1 className="NoticeHeaderTitle">{noticeInfo?.title}</h1>
                 <div className="NoticeDetailInfo">
                     <div className='NoticeMyProfile'>{noticeInfo?.profile}</div>
                     <div className='NoticeWriter'>{noticeInfo?.writer}</div>

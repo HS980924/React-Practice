@@ -20,6 +20,8 @@
 
         .MenuBox{
             display: flex;
+            align-items: center;
+            justify-content: space-around;
             width: 30%;
             height: 100%;
             margin-left: 10%;
@@ -28,23 +30,23 @@
             font-size: 1rem;
 
             .SelectedMenu{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 5rem;
-                height: 100%;
-                margin-left: 2%;
+                // display: flex;
+                // align-items: center;
+                // justify-content: center;
+                // width: 5rem;
+                // height: 100%;
+                // margin-left: 2%;
                 text-decoration: none;
                 color: #0090F9;
                 cursor: pointer;
             }
             .Menu{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 5rem;
-                height: 100%;
-                margin-left: 2%;
+                // display: flex;
+                // align-items: center;
+                // justify-content: center;
+                // width: 5rem;
+                // height: 100%;
+                // margin-left: 2%;
                 text-decoration: none;
                 color: black;
                 cursor: pointer;

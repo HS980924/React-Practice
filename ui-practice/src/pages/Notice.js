@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { BiSolidPencil } from "react-icons/bi";
 
 import NoticeItem from "../components/Notice/NoticeItem";
+import CreateButton from "../components/CreateButton";
+import Title from "../components/Title/Title";
+
+import Pagination from 'react-bootstrap/Pagination';
 
 import '../styles/Notice/Notice.scss';
 
-
 const Notice = () =>{
+
     const DummyNoticeList = [
         {
             id: 0,
@@ -53,19 +57,54 @@ const Notice = () =>{
         },
     ];
 
+    
+    const [ selectedPage, setSelectedPage ] = useState(1);
+    const [ pageSetCnt, setPageSetCnt ] = useState(0);
+    const [ pageNumList, setPageNumList ] = useState([1,2,3,4,5]);
+    const [ totalPage, setTotalPage ] = useState(10);
+
+    const pagePrevMoved = () => {
+        if (selectedPage > 1){
+            setSelectedPage(selectedPage-1);
+            if((selectedPage%5) === 1){
+                setPageSetCnt(parseInt(selectedPage/5)-1);
+            }
+        }
+    }
+
+    const pageNextMoved = () => {
+        if(selectedPage < totalPage){
+            setSelectedPage(selectedPage+1);
+            if(!(selectedPage%5)){
+                setPageSetCnt(parseInt(selectedPage/5));
+            }
+        }
+    }
+
+    const pageSetPreMoved = () => {
+        if(pageSetCnt){
+            setPageSetCnt(pageSetCnt-1);
+            setSelectedPage(5*(pageSetCnt-1)+1);
+        }    
+    }
+    
+    const pageSetNextMoved = () => {
+        if(pageSetCnt < parseInt(totalPage / 5)){
+            setPageSetCnt(pageSetCnt+1);
+            setSelectedPage(5*(pageSetCnt+1)+1);
+        }
+    }
+    
+    const onChangePageNum = (num) => {
+        setSelectedPage(num);
+    }
+
+
     const [ noticeList, setNoticeList ] = useState(DummyNoticeList);
     return(
         <div className="NoticeContainer">
-            <div className="NoticeTitleBox">
-                <div className="NoticeTitle">공지사항</div>
-                {/* <div className="NoticeSubcontents">Pray2U의 다양한 정보를 공지하는 공간입니다.</div> */}
-            </div>
-            <div className="NoticeMiddleBox">
-                <Link to={'/notice/create'} className="CreateForm">
-                    <BiSolidPencil className="PencilLogo"/>
-                    <p className="Write">작성하기</p>
-                </Link>
-            </div>
+            <Title title='공지사항'/>
+            <CreateButton link={'/notice/create'}/>
             <div className="NoticeListBox">
                 {
                     noticeList?.map(notice => 
@@ -73,7 +112,26 @@ const Notice = () =>{
                     )
                 }
             </div>
-            
+            <Pagination className='PaginationBox'>
+                <Pagination.Prev onClick={pagePrevMoved}/>
+                {
+                    pageNumList?.map(pageNum =>
+                        selectedPage === pageNum ?
+                        <Pagination.Item 
+                            key={pageNum} 
+                            active={true}>
+                            {pageNum}
+                        </Pagination.Item> :
+                        <Pagination.Item 
+                            key={pageNum} 
+                            active={false} 
+                            onClick={()=>onChangePageNum(pageNum)}>
+                                {pageNum}
+                        </Pagination.Item>
+                    )
+                }
+                <Pagination.Next onClick={pageNextMoved}/>
+            </Pagination>
         </div>
     );
 }

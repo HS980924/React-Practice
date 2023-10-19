@@ -1,12 +1,11 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdOutlineCancel } from 'react-icons/md';
-import '../styles/Notice/NoticeCreate.scss';
 import TextEditor from '../components/TextEditor';
 import RegistButton from '../components/RegistButton';
 
-const NoticeCreate = () =>{
+import '../styles/Til/TilCreate.scss';
+
+const TilCreate = () =>{
 
     const navigate = useNavigate();
 
@@ -56,54 +55,31 @@ const NoticeCreate = () =>{
     }
 
     return(
-        <div className="NoticeCreateCotainer">
-            <h1 className='h1'>공지사항 작성</h1>
+        <div className="TilCreateCotainer">
+            <h1 className='h1'>TIL 작성</h1>
             <div>
                 <p className='p'>제목</p>
                 <input
                     placeholder='제목을 입력해주세요.'
-                    className='NoticeCreateTitle'
+                    className='TilCreateTitle'
                     onChange={onHandleTitle}/>
             </div>
             <div>
                 <p  className='p'>태그</p>
                 <input 
                     placeholder='태그를 입력해주세요. (예: #java, #react)'
-                    className='NoticeCreateTag'
+                    className='TilCreateTag'
                     onChange={onHandleTag}/>
             </div>
-            <div className='NoticeContentBox'>
+            <div className='TilContentBox'>
                 <p className='p'>본문</p>
                 <TextEditor value={content} setValue={setContent}/>
             </div>
-            <div className='FileUploadBox'>
-            <input 
-                type="file" 
-                id="input-file" 
-                multiple 
-                className="FileUpload" 
-                style={{display:"none"}}
-                onChange={onHandleAddFile}
-                />
-                <label htmlFor="input-file" className='FileUpload'>
-                    <div className='FileUpload' >파일 업로드</div>
-                </label>
-                <div className='FileItemBox'>
-                {
-                    fileNameList?.map((file, idx) => (
-                        <div key={idx} className='FileItem'>
-                            <div className='FileName'>{file}</div>
-                            <MdOutlineCancel className='FileDelete' onClick={() => onHandleDeleteFile(idx)}/>
-                        </div>
-                    ))
-                }
-                </div>
-            </div>
-            <RegistButton
+            <RegistButton 
                 onHandleCancel={onHandleCancel}
                 onHandleSave={onHandleSave}/>
         </div>
     );
 }
 
-export default NoticeCreate
+export default TilCreate;

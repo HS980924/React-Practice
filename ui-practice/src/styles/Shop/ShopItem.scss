@@ -1,0 +1,37 @@
+.ShopItemBox{
+    width: 80%;
+    height: 15rem;
+    box-shadow: 1px 1px 3px 1px #dadce0;
+    border-radius: 1em;
+    font-weight: bold;
+    margin: 10%;
+    cursor: pointer;
+    &:hover{
+        box-shadow: 1px 1px 3px 1px #8c8d91;
+    }
+
+    .ItemImage{
+        width: 9rem;
+        height: 9rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        margin-top: 1rem;
+    }
+    .ItemName{
+        width: 80%;
+        height: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+    }
+    .ItemPoint{
+        width: 80%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;margin: auto;
+    }
+}
