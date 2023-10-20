@@ -131,22 +131,32 @@
                     color:#0090F9;
                 }
             }
-            .MyProfile{
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            .MyProfileBox{
+                display: block;
                 width: 13%;
                 height: 90%;
-                background-color: #C2185B;
-                color: white; 
-                font-size: 90%;
-                font-weight: 400;
-                border-radius: 50%;
-                cursor: pointer;
-                text-decoration: none;
-                margin-left: 2%;
-                margin-right: 1%;
+                position: relative;
+                box-sizing: border-box;
+                border: 0 solid #e5e7eb;
+                margin-right: 20%;
+                .MyProfile{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #C2185B;
+                    color: white; 
+                    font-size: 90%;
+                    font-weight: 400;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    text-decoration: none;
+                    margin-left: 2%;
+                    margin-right: 1%;
+                }
             }
+            
         }
 
     }

@@ -164,6 +164,7 @@ const Shop = () => {
     return(
         <div className="ShopContainer">
             <Title title='Shop'/>
+            <div className='MyPoint'>현재 보유 포인트: {myPoint}</div>
             <div className="ShopItemList">
                 {
                     itemList?.map(item => <ShopItem key={item.itemName} item={item} onModal={onModal}/>)

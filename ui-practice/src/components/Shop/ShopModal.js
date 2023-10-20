@@ -28,10 +28,6 @@ const ShopModal = ({itemInfo ,closeModal, myPoint, post_BuyItem}) =>{
                             <li className='Content'>현재 보유 포인트 : {myPoint} pt</li>
                             <li className='Content'>차감 이후 포인트 : {myPoint-itemInfo.point} pt</li>
                         </div>
-                        <div className='ItemSubSetting'>
-                            <li className='Title'>추가 옵션 선택</li>
-                            <div className='Content'>사용 대상</div>
-                        </div>
                     </div>
                 </div>
                 <div className='ShopButtonBox'>

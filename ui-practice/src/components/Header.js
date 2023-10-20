@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiFillGithub } from "react-icons/ai";
 import '../styles/Header/Header.scss';
 import LoginModal from './LoginModal';
+import Dropdown from './Header/Dropdown';
+import { loginCheck, logout } from '../util/auth';
 
 const Header = () => {
 
@@ -13,6 +15,7 @@ const Header = () => {
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
     const [ searchContent, setSearchContent ] = useState(null);
     const [ isLoginModal, setIsLoginModal ] = useState(false);
+    const [ view, setView ] = useState(false);
 
     const menus = [
         {
@@ -61,6 +64,15 @@ const Header = () => {
         setIsLoginModal(false);
     }
 
+    const onHandleLogout = () => {
+        logout();
+        setView(false);
+    }
+
+    useEffect(()=>{
+        setIsLoggedIn(loginCheck)
+    },[]);
+
 
     return(
         <div className='HeaderContainer'>
@@ -92,7 +104,15 @@ const Header = () => {
                         <Link to='https://github.com/Pray2U' target="_blank" rel="noopener noreferrer" className='GithubLink'>
                             <AiFillGithub className='GithubIcon'/>
                         </Link>
-                        <div className='MyProfile'>형순</div>
+                        <div className='MyProfileBox'>
+                            <img src='https://avatars.githubusercontent.com/u/75660071?v=4' 
+                                className='MyProfile'
+                                onClick={()=>setView(!view)}
+                            />
+                            {
+                                view && <Dropdown onHandleLogout={onHandleLogout}/>
+                            }
+                        </div>
                     </div>
                     :
                     <div className='ButtonBox'>
