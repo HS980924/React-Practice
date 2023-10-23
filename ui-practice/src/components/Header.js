@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiFillGithub } from "react-icons/ai";
 import '../styles/Header/Header.scss';
 import LoginModal from './LoginModal';
 import Dropdown from './Header/Dropdown';
-import { loginCheck, logout } from '../util/auth';
+import { setCookie, removeCookie, checkLogin } from '../util/auth';
 
 const Header = () => {
-
     const navigate = useNavigate();
     const location = useLocation();
     const path = location.pathname.split('/')[1];
 
     const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const [ searchParams, setSearchParams] = useSearchParams();
     const [ searchContent, setSearchContent ] = useState(null);
     const [ isLoginModal, setIsLoginModal ] = useState(false);
     const [ view, setView ] = useState(false);
@@ -65,12 +65,21 @@ const Header = () => {
     }
 
     const onHandleLogout = () => {
-        logout();
+        removeCookie('accessToken');
         setView(false);
+        setIsLoggedIn(false);
+    }
+
+    const save_token = () => {
+        const accessToken = searchParams.get('accessToken');
+        if(accessToken){
+            setCookie('accessToken',accessToken);
+        }
     }
 
     useEffect(()=>{
-        setIsLoggedIn(loginCheck)
+        save_token();
+        setIsLoggedIn(checkLogin('accessToken'));
     },[]);
 
 
@@ -101,9 +110,6 @@ const Header = () => {
                 {
                     isLoggedIn ? 
                     <div className='ButtonBox'>
-                        <Link to='https://github.com/Pray2U' target="_blank" rel="noopener noreferrer" className='GithubLink'>
-                            <AiFillGithub className='GithubIcon'/>
-                        </Link>
                         <div className='MyProfileBox'>
                             <img src='https://avatars.githubusercontent.com/u/75660071?v=4' 
                                 className='MyProfile'

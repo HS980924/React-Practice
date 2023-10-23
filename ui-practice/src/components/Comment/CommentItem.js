@@ -8,9 +8,9 @@ const CommentItem = ({commentInfo}) =>{
         <div className="CommentItemBox">
             <div className="CommentItemHeader">
                 <div className='CommentItemProfile'>{commentInfo?.profile}</div>
-                <div className='CommentItemWriter'>{commentInfo?.writer}</div>
+                <div className='CommentItemWriter'>{commentInfo?.username}</div>
             </div>
-            <div className="CommentItemContents">{commentInfo?.comment}</div>
+            <div className="CommentItemContents">{commentInfo?.content}</div>
             <div className="CommentTime">{timeTrans(commentInfo?.createdDate)}</div>
         </div>
     );

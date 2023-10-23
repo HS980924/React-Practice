@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
 
 import TextEditor from '../components/TextEditor';
@@ -12,7 +12,10 @@ import '../styles/Notice/NoticeCreate.scss';
 
 const NoticeCreate = () =>{
 
+    const location = useLocation();
     const navigate = useNavigate();
+    const path = location.pathname.split('/');
+    const postId = path[path.length-1];
 
     const [ title, setTitle ] = useState(null);
     const [ content, setContent ] = useState(null);
@@ -20,10 +23,6 @@ const NoticeCreate = () =>{
 
     const onHandleTitle = (e) => {
         setTitle(e.target.value);
-    }
-
-    const onHandleContent = (e) => {
-        setContent(e.target.value);
     }
 
     const onHandleAddFile = (e) => {
@@ -49,30 +48,31 @@ const NoticeCreate = () =>{
         navigate('/notice')
     }
 
-    const post_noticeInfo = async() => {
+    const put_noticeInfo = async() => {
         if (title && content){
             try{
                 const postData = {
                     title:title,
                     content:content,
-                    fileUrl: null,
+                    fileUrl: 'test.com',
                 }
-                const url = `${process.env.REACT_APP_API_SERVER}/api/posts`;
-                const response = await axios.post(url,postData,{
+                const url = `${process.env.REACT_APP_API_SERVER}/api/posts/${postId}`;
+                console.log(url);
+                const response = await axios.put(url,postData,{
                     headers: {
                         Authorization: `Bearer ${getCookie('accessToken')}`
                     }
                     ,withCredentials:true
                 });
                 if (response.status === 200){
-                    alert('등록되었습니다.');
+                    alert('수정 되었습니다.');
                     navigate('/notice');
                 }else{
-                    alert('등록 실패하셨습니다.');
+                    alert('수정 실패하셨습니다.');
                     navigate('/notice');
                 }
             }catch(e){
-                alert(e);
+                alert(e.response.data.message);
                 navigate('/notice');
             }
         }else{
@@ -81,12 +81,41 @@ const NoticeCreate = () =>{
         
     };
 
+    const read_noticeItem = async() => {
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/posts/${postId}`;
+            const response = await axios.get(url,{
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials:true
+            });
+            if(response.status === 200){
+                setContent(response.data.data.content);
+                setTitle(response.data.data.title);
+                // setFileNameList()
+            }else{
+                alert('데이터 통신에 실패하였습니다.');
+                navigate('/notice');
+            }
+            
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/notice');
+        }
+    };
+
+    useEffect(()=>{
+        read_noticeItem();
+    },[])
+
     return(
         <div className="NoticeCreateCotainer">
             <h1 className='h1'>공지사항 작성</h1>
             <div>
                 <p className='p'>제목</p>
                 <input
+                    defaultValue={title || ''}
                     placeholder='제목을 입력해주세요.'
                     className='NoticeCreateTitle'
                     onChange={onHandleTitle}/>
@@ -120,7 +149,7 @@ const NoticeCreate = () =>{
             </div>
             <RegistButton
                 onHandleCancel={onHandleCancel}
-                onHandleSave={post_noticeInfo}/>
+                onHandleSave={put_noticeInfo}/>
         </div>
     );
 }

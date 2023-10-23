@@ -3,7 +3,8 @@
     height: 12vh;
     // 추후에 변경(width, height)
     margin: auto;
-    padding: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     border-top: 0.1rem solid #D2D4D9;
     text-decoration: none;
     color: black;
@@ -34,7 +35,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 8%;
+            margin-left: 0.25rem;
             height: 100%;
             font-weight: bold;
         }
@@ -70,6 +71,7 @@
         .Time{
             display: flex;
             justify-content: center;
+            margin-left: auto;
         }
     }
 }

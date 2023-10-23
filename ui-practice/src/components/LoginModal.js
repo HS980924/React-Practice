@@ -8,8 +8,7 @@ import '../styles/Modal/LoginModal.scss';
 const LoginModal = ({onCancel}) => {
 
     const logButton = () => {
-        login();
-        onCancel();
+        // onCancel();
     }
     
     return(
@@ -19,10 +18,10 @@ const LoginModal = ({onCancel}) => {
                     <MdOutlineCancel className="LoginModalCancel" onClick={()=>onCancel()}/>
                 </div>
                 <div className="LoginModalTitle">로그인</div>
-                <div className="LoginModalButton" onClick={()=>logButton()}>
+                <Link to={`${process.env.REACT_APP_API_SERVER}/api/login/oauth2/code/github?redirect_uri=${process.env.REACT_APP_REDIRECT_URL}`} className="LoginModalButton" onClick={()=>logButton()}>
                     <AiFillGithub className="LoginGithubIcon"/>
                     <div className="LoginModalContent">github으로 로그인하기</div>
-                </div>
+                </Link>
             </div>
         </div>
     )

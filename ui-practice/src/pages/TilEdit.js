@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import TextEditor from '../components/TextEditor';
 import RegistButton from '../components/RegistButton';
 
@@ -8,10 +8,13 @@ import axios from 'axios';
 
 import '../styles/Til/TilCreate.scss';
 
-const TilCreate = () =>{
+const TilEdit = () =>{
 
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const path = location.pathname.split('/');
+    const postId = path[path.length-1];
+    
     const [ title, setTitle ] = useState(null);
     const [ tag, setTag ] = useState(null);
     const [ content, setContent ] = useState(null);
@@ -24,21 +27,36 @@ const TilCreate = () =>{
         setTag(e.target.value);
     }
 
-    const onHandleContent = (e) => {
-        setContent(e.target.value);
-    }
-
     const onHandleCancel = () => {
         navigate('/notice')
     }
 
-    const onHandleSave = () => {
-        console.log('제목',title);
-        console.log('tag',tag);
-        console.log('내용',content);
+    const read_TilInfo = async() => {
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/tils/${postId}`;
+            const response = await axios.get(url,{
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                }
+                ,withCredentials:true
+            });
+            console.log(response.data);
+            if (response.status === 200){
+                setContent(response.data.data.content);
+                setTitle(response.data.data.title);
+                setTag(response.data.data.tag);
+            }else{
+                // 모달창 데이터 전송 오류
+                alert('TIL 데이터를 불러오는데 실패했습니다.');
+                navigate('/til');
+            }
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/til');
+        }
     }
 
-    const post_TilInfo = async() => {
+    const put_TilInfo = async() => {
         if (title && tag && content){
             try{
                 const postData = {
@@ -46,19 +64,18 @@ const TilCreate = () =>{
                     tag: tag,
                     content:content,
                 }
-                const url = `${process.env.REACT_APP_API_SERVER}/api/tils`;
-                const response = await axios.post(url,postData,{
+                const url = `${process.env.REACT_APP_API_SERVER}/api/tils/${postId}`;
+                const response = await axios.put(url,postData,{
                     headers: {
                         Authorization: `Bearer ${getCookie('accessToken')}`
                     }
                     ,withCredentials:true
                 });
-                console.log(response);
                 if (response.status === 200){
-                    alert('등록되었습니다.');
+                    alert('수정 되었습니다.');
                     navigate('/til');
                 }else{
-                    alert('등록 실패하셨습니다.');
+                    alert('수정 실패하셨습니다.');
                     navigate('/til');
                 }
             }catch(e){
@@ -71,19 +88,25 @@ const TilCreate = () =>{
         
     };
 
+    useEffect(()=>{
+        read_TilInfo();
+    },[])
+
     return(
         <div className="TilCreateCotainer">
             <h1 className='h1'>TIL 작성</h1>
             <div>
                 <p className='p'>제목</p>
                 <input
+                    defaultValue={title || ""}
                     placeholder='제목을 입력해주세요.'
                     className='TilCreateTitle'
                     onChange={onHandleTitle}/>
             </div>
             <div>
                 <p  className='p'>태그</p>
-                <input 
+                <input
+                    defaultValue={tag || ""}
                     placeholder='태그를 입력해주세요. (예: java, react)'
                     className='TilCreateTag'
                     onChange={onHandleTag}/>
@@ -94,9 +117,9 @@ const TilCreate = () =>{
             </div>
             <RegistButton 
                 onHandleCancel={onHandleCancel}
-                onHandleSave={post_TilInfo}/>
+                onHandleSave={put_TilInfo}/>
         </div>
     );
 }
 
-export default TilCreate;
+export default TilEdit;

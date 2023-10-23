@@ -2,6 +2,7 @@
 import { AiOutlineEye,AiOutlineComment } from "react-icons/ai";
 import '../../styles/Notice/NoticeItem.scss';
 import { useNavigate } from "react-router-dom";
+import { noticeTime } from '../../util/time';
 
 const NoticeItem = ({noticeItem}) =>{
     const navigate = useNavigate();
@@ -11,18 +12,18 @@ const NoticeItem = ({noticeItem}) =>{
     }
 
     return(
-        <div className="NoticeItemContainer" onClick={()=>moveDetailPage(noticeItem?.id)}>
+        <div className="NoticeItemContainer" onClick={()=>moveDetailPage(noticeItem?.postId)}>
             <div className='WriterBox'>
-                <div className='Profile'>{(noticeItem?.writer).substr(1)}</div>
-                <div className='Writer'>{noticeItem?.writer}</div>
+                <div className='Profile'>{(noticeItem?.writerName).substr(1)}</div>
+                <div className='Writer'>{noticeItem?.writerName}</div>
             </div>
             <div className='Title'>{noticeItem?.title}</div>
             <div className='DetailBox'>
-                <AiOutlineEye className="EyeIcon"/>
-                <div className='WatchCnt'>2000</div>
+                {/* <AiOutlineEye className="EyeIcon"/>
+                <div className='WatchCnt'>{noticeItem?.watchCnt}</div>
                 <AiOutlineComment/>
-                <div className="Comment">122</div>
-                <div className='Time'>3개월전</div>
+                <div className="Comment">{noticeItem?.commentCnt}</div> */}
+                <div className='Time'>{noticeTime(noticeItem?.createDate)}</div>
             </div>
         </div>
     );

@@ -1,69 +1,151 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import parse from 'html-react-parser';
+import axios from "axios";
 
 import CommentForm from "../components/Comment/CommentForm";
-import CommentItem from "../components/Comment/CommentItem";
+import SideMenu from "../components/SideMenu";
+
+import { getCookie } from "../util/auth";
+import { noticeTime } from "../util/time";
 
 import '../styles/Notice/NoticeDetail.scss';
 
 
 const NoticeDetail = () =>{
 
-    const dummyData = {
-        id: 0,
-        writer: "최형순",
-        profile: "형순",
-        title: "알아두면 유용한 알고리즘",
-        contents:"<h2>알아두면 좋은 4가지 알고리즘</h2><h4>1. 버블 정렬 알고리즘</h4><ul><li>이것은 이것이다.</li></ul><h4>2. 선택 정렬 알고리즘</h4><ul><li>이것도 이것이다.</li></ul><h4>3. 이것은 뭘까?</h4><ul><li>이것도 이것이다.<ul><li>이것은 이것이것이다.</li></ul></li></ul><h4>4. 이것은 이것이다.</h4><ul><li>아닌가? 맞는가?<ul><li>아닌교?<ul><li>아니다.</li></ul></li></ul></li></ul>",
-        cnt: 200,
-        createdDate: "3개월전"
+    const location = useLocation();
+    const navigate = useNavigate();
+    const pathList = location.pathname.split('/');
+    const postId = pathList[pathList.length-1];
+
+    const [ isLoggedIn, setIsLoggedIn ] = useState(true);
+    const [ noticeInfo, setNoticeInfo ] = useState(null);
+    const [ title, setTitle ] = useState(null);
+    const [ postFile, setPostFile ] = useState(null);
+    const [ myInfo, setMyInfo ] = useState(null);    
+
+    
+    const read_NoticeItem = async() => {
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/posts/${postId}`;
+            const response = await axios.get(url,{
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials:true
+            });
+            if(response.status === 200){
+                setNoticeInfo(response.data.data);
+            }else{
+                alert('데이터 통신에 실패하였습니다.');
+                navigate('/');
+            }
+            
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/');
+        }
+    };
+
+    const read_myInfo = async() => {
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/users/me`;
+            const response = await axios.get(url,
+                {
+                    headers: {
+                        Authorization: `Bearer ${getCookie('accessToken')}`
+                    },
+                    withCredentials:true
+                }
+            );
+            if(response.status === 200){
+                setMyInfo(response.data.data);
+            }else{
+                alert('내 정보를 가져오지 못했습니다.');
+            }
+            
+        }catch(e){
+            alert('서버 오류');
+            navigate('/error');
+        }
+    };
+
+    const delete_NoticeItem = async() => {
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/posts/${postId}`;
+            const response = await axios.delete(url,{
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials:true
+            });
+            if(response.status === 200){
+                alert('공지사항이 삭제되었습니다.');
+                navigate('/notice');
+            }else{
+                alert('데이터 통신에 실패하였습니다.');
+                navigate('/');
+            }
+            
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/');
+        }
     }
 
-    const dummyComment = [
-        {
-            id:0,
-            writer: "최형순",
-            profile: "형순",
-            comment:"하하하하핳하하하하하하하하하하하하하하하하하",
-            createdDate: "2023-10-14T16:22",
-        },
-        {
-            id:1,
-            writer: "최최최",
-            profile: "최최",
-            comment:"흠 디자인이 별로네요",
-            createdDate: Date(),
-        }
-    ]
-    const [ noticeInfo, setNoticeInfo ] = useState(dummyData);
+    const onToggle = () => {
+        navigate(`/notice/edit/${postId}`);
+    }
 
+    useEffect(()=>{
+        read_NoticeItem();
+        read_myInfo();
+    },[]);
 
     return(
         <div className="NoticeDetailContainer">
             <div className="NoticeDetailHeader">
                 <p className="NoticeCategory">공지사항&nbsp;&nbsp;Notice</p>
-                <h1 className="NoticeHeaderTitle">{noticeInfo?.title}</h1>
+                <div className="NoticeHeaderBox">
+                    <h1 className="NoticeHeaderTitle">{noticeInfo?.title}</h1>
+                    {
+                        myInfo?.role !== 'ROLE_USER' ? <></> : 
+                        <SideMenu 
+                            onToggle={onToggle}
+                            onRemove={delete_NoticeItem}/>
+                    }
+                </div>
                 <div className="NoticeDetailInfo">
                     <div className='NoticeMyProfile'>{noticeInfo?.profile}</div>
-                    <div className='NoticeWriter'>{noticeInfo?.writer}</div>
-                    <AiOutlineEye className="NoticeEyeIcon"/>
-                    <div className='NoticeWatchCnt'>{noticeInfo?.cnt}</div>
-                    <div className='NoticeTime'>{noticeInfo?.createdDate}</div>
+                    <div className='NoticeWriter'>{noticeInfo?.writerName}</div>
+                    {/* <AiOutlineEye className="NoticeEyeIcon"/>
+                    <div className='NoticeWatchCnt'>{noticeInfo?.cnt}</div> */}
+                    <div className='NoticeTime'>{noticeTime(noticeInfo?.createDate)}</div>
                 </div>
             </div>
             <div className="NoticeContents">
-                {parse(noticeInfo?.contents)}
+                {parse(`${noticeInfo?.content}`)}
             </div>
-            <div className="NoticeComment">
-                <div className="CommentCnt">댓글 {dummyComment.length}</div>
+            {
+                postId ? <CommentForm id={postId} myInfo={myInfo} /> : <></>
+            }
+            {/* <div className="NoticeComment">
+                <div className="CommentCnt">댓글 {comments?.length}</div>
                 {
-                    dummyComment?.map((comment)=>
-                        <CommentItem key={comment.id} commentInfo={comment}/>
+                    comments?.map((comment)=>
+                        <CommentItem key={comment.replyId} commentInfo={comment}/>
                     )
                 }
-            </div>
-            <CommentForm/>
+                {
+                    totalCommentPage > commentPage ? 
+                    <div ref={setTarget}>
+                        {isLoadedComment && <p>Loading...</p>}
+                    </div>
+                    : <></>
+                }
+            </div> */}
         </div>
     );
 }
