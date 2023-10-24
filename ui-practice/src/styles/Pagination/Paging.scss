@@ -2,11 +2,12 @@
     display: flex;
     justify-content: center;
     margin: auto;
+    width: 80%;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-left: 0%;
     border-top: 0.1rem solid #D2D4D9;
-    width: 80%;
-
+    
     .ul{
         list-style: none;
         padding: 0;

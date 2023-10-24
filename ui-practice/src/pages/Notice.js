@@ -14,52 +14,6 @@ import { getCookie } from "../util/auth";
 import '../styles/Notice/Notice.scss';
 
 const Notice = () =>{
-
-    const DummyNoticeList = [
-        {
-            id: 0,
-            writer:"최형순",
-            title:"이번주 부터 TIL은 주 3회로 늘리겠습니다.",
-            modifiedDate: "2023-10-11T19:23:33.222",
-            watchCnt: 0,
-        },
-        {
-            id: 1,
-            writer:"최형순",
-            title:"이번주 부터 TIL은 주 3회로 늘리겠습니다.",
-            modifiedDate: "2023-10-11T19:23:33.222",
-            watchCnt: 0,
-        },
-        {
-            id: 2,
-            writer:"최형순",
-            title:"이번주 부터 TIL은 주 3회로 늘리겠습니다.",
-            modifiedDate: "2023-10-11T19:23:33.222",
-            watchCnt: 0,
-        },
-        {
-            id: 3,
-            writer:"최형순",
-            title:"이번주 부터 TIL은 주 3회로 늘리겠습니다.",
-            modifiedDate: "2023-10-11T19:23:33.222",
-            watchCnt: 0,
-        },
-        {
-            id: 4,
-            writer:"최형순",
-            title:"이번주 부터 TIL은 주 3회로 늘리겠습니다.",
-            modifiedDate: "2023-10-11T19:23:33.222",
-            watchCnt: 0,
-        },
-        {
-            id: 5,
-            writer:"최형순",
-            title:"이번주 부터 TIL은 주 3회로 늘리겠습니다.",
-            modifiedDate: "2023-10-11T19:23:33.222",
-            watchCnt: 0,
-        },
-    ];
-
     
     const navigate = useNavigate();
     const pageSize = 10;
@@ -82,7 +36,8 @@ const Notice = () =>{
             setTotalItemCnt(response.data.data.totalElements);
             // setIsLodding(false);
         }catch(e){
-            console.log(e);
+            alert(e.response.data.message);
+            navigate('/');
         }
     }
 

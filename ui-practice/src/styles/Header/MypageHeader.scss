@@ -1,0 +1,42 @@
+.MyPageHeaderBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+    margin-top: 1rem;
+    width: 80%;
+    height: 3.5rem;
+    border-bottom: 0.15em solid #BABABA;
+    border-top: 0.15em solid #BABABA;
+    font-weight: bold;
+    
+    .SelectedMenu{
+        display: flex;
+        width: 15%;
+        height: 90%;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.125vw;
+        color: #0090F9;
+        cursor: pointer;
+        text-decoration: none;
+        &:hover{
+            color:#0090F9;
+        }
+    }
+    .Menu{
+        display: flex;
+        width: 15%;
+        height: 90%;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.125vw;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        &:hover{
+            color:#0090F9;
+        }
+    }
+
+}

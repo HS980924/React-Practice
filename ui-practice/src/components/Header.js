@@ -116,7 +116,7 @@ const Header = () => {
                                 onClick={()=>setView(!view)}
                             />
                             {
-                                view && <Dropdown onHandleLogout={onHandleLogout}/>
+                                view && <Dropdown onHandleLogout={onHandleLogout} onSetView={setView}/>
                             }
                         </div>
                     </div>
