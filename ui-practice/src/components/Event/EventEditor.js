@@ -4,6 +4,7 @@ import CalendarModal from './CalendarModal';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import { getCookie } from '../../util/auth';
 import { FcCalendar } from "react-icons/fc";
 
 import '../../styles/Event/EventEditor.scss';
@@ -87,22 +88,22 @@ const EventEditor = ({canselAddEvent, isAddEventView, eventInfo, saveEvent}) =>{
                     postData.eventId = id;
                     const response = await axios.put(url, postData, {
                         headers:{ 
-                            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                            Authorization: `Bearer ${getCookie('accessToken')}`,
                         },
                         withCredentials:true
                     });
-                    if (response.status == 200){
+                    if (response.status === 200){
                         saveEvent(response.data.data);
                         canselAddEvent();
                     }
                 }else{
                     const response = await axios.post(url, postData, {
                         headers:{ 
-                            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                            Authorization: `Bearer ${getCookie('accessToken')}`,
                         },
                         withCredentials:true
                     });
-                    if(response.status == 200){
+                    if(response.status === 200){
                         saveEvent(response.data.data);
                         canselAddEvent();
                     }

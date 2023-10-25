@@ -63,6 +63,7 @@ const MyAttend = () => {
             });
             if(response.status === 200){
                 setMyAttendDayList(myAttendDayList => myAttendDayList?.concat(response.data));
+                setCheckedToday(true);
             }else{
                 alert('출석 오류가 발생했습니다.');
                 // location.reload();

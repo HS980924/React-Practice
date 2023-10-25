@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { AiOutlineEye } from "react-icons/ai";
+import { useState, useEffect  } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+// import { AiOutlineEye } from "react-icons/ai";
 import parse from 'html-react-parser';
 import axios from "axios";
 
@@ -22,7 +22,6 @@ const NoticeDetail = () =>{
 
     const [ isLoggedIn, setIsLoggedIn ] = useState(true);
     const [ noticeInfo, setNoticeInfo ] = useState(null);
-    const [ title, setTitle ] = useState(null);
     const [ postFile, setPostFile ] = useState(null);
     const [ myInfo, setMyInfo ] = useState(null);    
 

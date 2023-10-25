@@ -24,18 +24,8 @@ const TilCreate = () =>{
         setTag(e.target.value);
     }
 
-    const onHandleContent = (e) => {
-        setContent(e.target.value);
-    }
-
     const onHandleCancel = () => {
         navigate('/notice')
-    }
-
-    const onHandleSave = () => {
-        console.log('제목',title);
-        console.log('tag',tag);
-        console.log('내용',content);
     }
 
     const post_TilInfo = async() => {

@@ -68,6 +68,7 @@ const Header = () => {
         removeCookie('accessToken');
         setView(false);
         setIsLoggedIn(false);
+        window.location.replace('/');
     }
 
     const save_token = () => {

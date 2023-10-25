@@ -22,10 +22,6 @@ const NoticeCreate = () =>{
         setTitle(e.target.value);
     }
 
-    const onHandleContent = (e) => {
-        setContent(e.target.value);
-    }
-
     const onHandleAddFile = (e) => {
         const fileLists = e.target.files;
         let fileNameLists = [...fileNameList];
