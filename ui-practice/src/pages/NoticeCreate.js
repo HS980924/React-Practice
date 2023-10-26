@@ -101,7 +101,7 @@ const NoticeCreate = () =>{
                 onChange={onHandleAddFile}
                 />
                 <label htmlFor="input-file" className='FileUpload'>
-                    <div className='FileUpload' >파일 업로드</div>
+                    <div className='FileUpload'>파일 업로드</div>
                 </label>
                 <div className='FileItemBox'>
                 {

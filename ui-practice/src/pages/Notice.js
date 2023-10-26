@@ -7,11 +7,11 @@ import CreateButton from "../components/CreateButton";
 import Title from "../components/Title/Title";
 import Paging from "../components/Paging";
 
-import Pagination from 'react-bootstrap/Pagination';
 import axios from 'axios';
 import { getCookie } from "../util/auth";
 
 import '../styles/Notice/Notice.scss';
+import Footer from "../components/Footer";
 
 const Notice = () =>{
     
@@ -54,23 +54,28 @@ const Notice = () =>{
 
 
     return(
-        <div className="NoticeContainer">
-            <Title title='공지사항'/>
-            <CreateButton link={'/notice/create'}/>
-            <div className="NoticeListBox">
-                {
-                    noticeList?.map(notice => 
-                        <NoticeItem key={notice.postId} noticeItem={notice}/>
-                    )
-                }
+        <>
+            <div className="NoticeContainer">
+                {/* <Title title='공지사항'/>
+                <CreateButton link={'/notice/create'}/> */}
+                <div className="NoticeListBox">
+                    <Title title='공지사항'/>
+                    <CreateButton link={'/notice/create'}/>
+                    {
+                        noticeList?.map(notice => 
+                            <NoticeItem key={notice.postId} noticeItem={notice}/>
+                        )
+                    } 
+                    <Paging
+                    pageNum={selectedPage}
+                    countPerPage={pageSize}
+                    totalItems={totalItemCnt ? totalItemCnt : 0}
+                    handlePage={setSelectedPage}
+                />
+                </div>
             </div>
-            <Paging
-                pageNum={selectedPage}
-                countPerPage={pageSize}
-                totalItems={totalItemCnt ? totalItemCnt : 0}
-                handlePage={setSelectedPage}
-            />
-        </div>
+            <Footer/>
+        </>
     );
 }
 

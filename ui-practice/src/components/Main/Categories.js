@@ -444,7 +444,7 @@ const Caterogies = ({isLoggedIn}) => {
 
     return(
         <>
-            <div className="Container">
+            <div className="CategoryContainer">
                 <div className='CategoryBox'>
                     {categories.map(c =>(
                         <div 

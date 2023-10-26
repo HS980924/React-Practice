@@ -9,7 +9,7 @@ const Dropdown = ({onHandleLogout, onSetView}) => {
                 <Link to={'/mypage/attendance'} className="DropdownMenu" onClick={()=>onSetView(false)}>출석</Link>
                 <Link to={'/mypage/mytil'} className="DropdownMenu" onClick={()=>onSetView(false)}>My TIL</Link>
                 <Link to={'/mypage/myshop'} className="DropdownMenu" onClick={()=>onSetView(false)}>My Shop</Link>
-                <Link to={'/admin'} className="DropdownMenu" onClick={()=>onSetView(false)}>관리자</Link>
+                <Link to={'/admin/user'} className="DropdownMenu" onClick={()=>onSetView(false)}>관리자</Link>
             </div>
             <div className="DropdownLogOut" onClick={onHandleLogout}>로그아웃</div>
         </div>

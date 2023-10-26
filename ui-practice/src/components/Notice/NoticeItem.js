@@ -14,7 +14,8 @@ const NoticeItem = ({noticeItem}) =>{
     return(
         <div className="NoticeItemContainer" onClick={()=>moveDetailPage(noticeItem?.postId)}>
             <div className='WriterBox'>
-                <div className='Profile'>{(noticeItem?.writerName).substr(1)}</div>
+                {/* <img to={noticeItem?.profileImgUrl} className='Profile'/> */}
+                {/* <div className='Profile'>{(noticeItem?.writerName).substr(1)}</div> */}
                 <div className='Writer'>{noticeItem?.writerName}</div>
             </div>
             <div className='Title'>{noticeItem?.title}</div>

@@ -15,6 +15,7 @@ import MyAttend from './pages/MyAttend';
 import MyTil from './pages/MyTil';
 import MyShop from './pages/MyShop';
 import MyProfile from './pages/MyProfile';
+import AdminUser from './pages/AdminUser';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -40,6 +41,7 @@ function App() {
             <Route path='/mypage/attendance' element={<MyAttend/>}/>
             <Route path='/mypage/mytil' element={<MyTil/>}/>
             <Route path='/mypage/myshop' element={<MyShop/>}/>
+            <Route path='/admin/user' element={<AdminUser/>}/>
             <Route path='/login' element={<Main/>}/>
             <Route path='/signup' element={<Main/>}/>
             <Route path='/search' element={<Main/>}/>

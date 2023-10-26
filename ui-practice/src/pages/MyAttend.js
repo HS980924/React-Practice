@@ -8,6 +8,7 @@ import axios from "axios";
 
 import MypageHeader from "../components/Header/MypageHeader";
 import Title from "../components/Title/Title";
+import Footer from "../components/Footer";
 
 import '../styles/MyPage/MyAttend.scss';
 
@@ -122,31 +123,34 @@ const MyAttend = () => {
 
 
     return(
-        <div className="MyAttendContainer">
-            <Title title={'Mypage'}/>
-            <MypageHeader/>
-            <div className="MyAttendBox">
-                <Calendar
-                    locale="en"
-                    className="Calendar"
-                    onChange={(value,event) => onChangeSelectedMonth(value)}
-                    nextLabel={null}
-                    next2Label={null}
-                    prevLabel={null}
-                    prev2Label={null}
-                    value={new Date()}
-                    minDate={new Date(2023,5,1)}
-                    maxDate={new Date(today)}
-                    formatDay={(locale, date) => dayjs(date).format('D')}
-                    calendarType="gregory"
-                    tileContent={addDot}
-                />{
-                    checkedToday ? 
-                    <div className="CheckedAttendButton">출석 완료</div> :
-                    <div className="AttendButton" onClick={()=>post_MyAttendDay()}>출석하기</div>
-                }
+        <>
+            <div className="MyAttendContainer">
+                <Title title={'Mypage'}/>
+                <MypageHeader/>
+                <div className="MyAttendBox">
+                    <Calendar
+                        locale="en"
+                        className="Calendar"
+                        onChange={(value,event) => onChangeSelectedMonth(value)}
+                        nextLabel={null}
+                        next2Label={null}
+                        prevLabel={null}
+                        prev2Label={null}
+                        value={new Date()}
+                        minDate={new Date(2023,5,1)}
+                        maxDate={new Date(today)}
+                        formatDay={(locale, date) => dayjs(date).format('D')}
+                        calendarType="gregory"
+                        tileContent={addDot}
+                    />{
+                        checkedToday ? 
+                        <div className="CheckedAttendButton">출석 완료</div> :
+                        <div className="AttendButton" onClick={()=>post_MyAttendDay()}>출석하기</div>
+                    }
+                </div>
             </div>
-        </div>
+            <Footer/>
+        </>
     );
 }
 

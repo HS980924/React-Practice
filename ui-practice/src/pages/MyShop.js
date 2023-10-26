@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { getCookie } from "../util/auth";
 
 import MyShopItem from "../components/Shop/MyShopItem";
 import MypageHeader from "../components/Header/MypageHeader";
 import Title from "../components/Title/Title";
+import Footer from "../components/Footer";
 
 import '../styles/MyPage/MyShop.scss';
-import { getCookie } from "../util/auth";
 
 const MyShop = () =>{  
 
@@ -203,30 +203,33 @@ const MyShop = () =>{
     },[]);
 
     return(
-        <div className="MyShopContainer">
-            <Title title={'Mypage'}/>
-            <MypageHeader/>
-            <div className="MyItemOrderBox">
-                <div className="UsedItemButtons">
-                    {
-                        OrderMenu.map((menu,idx) =>
-                            <div 
-                                className={selectedMenu === idx ? "SelectedOrderMenu" : "OrderMenu"}
-                                onClick={()=>onClickMenu(idx)}
-                                key={idx}>{menu}
-                            </div>
-                        )
-                    }
-                </div>
-                <div className="ItemListBox">
-                    {
-                        myOrderList?.map(order => 
-                            isUsedItem === order.useStatus &&
-                            <MyShopItem key={order.orderId} item={order.item}/>)
-                    }
+        <>
+            <div className="MyShopContainer">
+                <Title title={'Mypage'}/>
+                <MypageHeader/>
+                <div className="MyItemOrderBox">
+                    <div className="UsedItemButtons">
+                        {
+                            OrderMenu.map((menu,idx) =>
+                                <div 
+                                    className={selectedMenu === idx ? "SelectedOrderMenu" : "OrderMenu"}
+                                    onClick={()=>onClickMenu(idx)}
+                                    key={idx}>{menu}
+                                </div>
+                            )
+                        }
+                    </div>
+                    <div className="ItemListBox">
+                        {
+                            myOrderList?.map(order => 
+                                isUsedItem === order.useStatus &&
+                                <MyShopItem key={order.orderId} item={order.item}/>)
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+            <Footer/>
+        </>
     );
 }
 

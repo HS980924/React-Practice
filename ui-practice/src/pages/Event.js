@@ -10,6 +10,7 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import Title from "../components/Title/Title";
 import TodoList from "../components/Event/TodoList";
 import EventEditor from "../components/Event/EventEditor";
+import Footer from "../components/Footer";
 
 import '../styles/Event/Event.scss';
 import '../styles/Event/Calendar.scss';
@@ -141,49 +142,52 @@ const Event = () => {
 
 
     return(
-        <div className="EventContainer">
-            <Title title='이벤트'/>
-            <div className="EventMainBox">
-                <div className="EventCalendarBox">
-                    <Calendar
-                        locale="en"
-                        onChange={setSelectedDay}
-                        next2Label={null}
-                        prev2Label={null}
-                        value={selectedDay}
-                        minDate={new Date(2023,1,1)}
-                        maxDate={new Date(2025,12,31)}
-                        formatDay={(locale, date) => dayjs(date).format('D')}
-                        onActiveStartDateChange={(action) => onChangeYearMonth(action)}
-                        calendarType='gregory'
-                        tileContent={addDot}
-                    />
-                </div>
-                <div className="MiddleLine"/>
-                <div className="EventDetailBox">
-                    <div className="EventDetailTitle">
-                        <p className="EventDetailDayOfWeek">{dayOfWeek[dayjs(selectedDay).day()]}</p>
-                        <p className="EventDetailDay">{dayjs(selectedDay).format('D')}th</p>
+        <>
+            <div className="EventContainer">
+                <Title title='이벤트'/> 
+                <div className="EventMainBox">
+                    <div className="EventCalendarBox">
+                        <Calendar
+                            locale="en"
+                            onChange={setSelectedDay}
+                            next2Label={null}
+                            prev2Label={null}
+                            value={selectedDay}
+                            minDate={new Date(2023,1,1)}
+                            maxDate={new Date(2025,12,31)}
+                            formatDay={(locale, date) => dayjs(date).format('D')}
+                            onActiveStartDateChange={(action) => onChangeYearMonth(action)}
+                            calendarType='gregory'
+                            tileContent={addDot}
+                        />
                     </div>
-                    {
-                        !isAddEventView ?
-                            <>
-                                <TodoList 
-                                    todos={eventApiData?.filter((event) => dayjs(dayjs(event.eventStartDate).format('YYYY-MM-DD')).isSame(selectedDay))} 
-                                    onRemove={onRemove} 
-                                    onToggle={onToggle}/>
-                                <div className="AddEventButton" onClick={addEvent}>+ Add a new Event</div>
-                            </>
-                        :  <EventEditor 
-                            canselAddEvent={canselAddEvent} 
-                            isAddEventView={isAddEventView} 
-                            eventInfo={editEventData} 
-                            saveEvent={saveEvent}
-                            />
-                    }
+                    <div className="MiddleLine"/>
+                    <div className="EventDetailBox">
+                        <div className="EventDetailTitle">
+                            <p className="EventDetailDayOfWeek">{dayOfWeek[dayjs(selectedDay).day()]}</p>
+                            <p className="EventDetailDay">{dayjs(selectedDay).format('D')}th</p>
+                        </div>
+                        {
+                            !isAddEventView ?
+                                <>
+                                    <TodoList 
+                                        todos={eventApiData?.filter((event) => dayjs(dayjs(event.eventStartDate).format('YYYY-MM-DD')).isSame(selectedDay))} 
+                                        onRemove={onRemove} 
+                                        onToggle={onToggle}/>
+                                    <div className="AddEventButton" onClick={addEvent}>+ Add a new Event</div>
+                                </>
+                            :  <EventEditor 
+                                canselAddEvent={canselAddEvent} 
+                                isAddEventView={isAddEventView} 
+                                eventInfo={editEventData} 
+                                saveEvent={saveEvent}
+                                />
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+            <Footer/>
+        </>
     )
 };
 

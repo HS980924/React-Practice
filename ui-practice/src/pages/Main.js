@@ -31,7 +31,6 @@ const Main = () => {
                 </div>
                 <div className='MainSection'>
                     <ImageCards/>
-                    <Footer/>
                 </div>
             </FullPageScroll>
         </>

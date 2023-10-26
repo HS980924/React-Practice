@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Title from '../components/Title/Title';
 import ShopItem from '../components/Shop/ShopItem';
 import ShopModal from '../components/Shop/ShopModal';
+import Footer from '../components/Footer';
 
 import '../styles/Shop/Shop.scss';
 
@@ -162,24 +163,26 @@ const Shop = () => {
     },[]);
 
     return(
-        <div className="ShopContainer">
-            <Title title='Shop'/>
-            <div className='MyPoint'>현재 보유 포인트: {myPoint}</div>
-            <div className="ShopItemList">
+        <>
+            <div className="ShopContainer">
+                <Title title='Shop'/>
+                <div className='MyPoint'>현재 보유 포인트: {myPoint}</div>
+                <div className="ShopItemList">
+                    {
+                        itemList?.map(item => <ShopItem key={item.itemName} item={item} onModal={onModal}/>)
+                    }
+                </div>
                 {
-                    itemList?.map(item => <ShopItem key={item.itemName} item={item} onModal={onModal}/>)
+                    isOpenModal ? <ShopModal 
+                        itemInfo={selectedItem} 
+                        myPoint={myPoint} 
+                        closeModal={closeModal}
+                        post_BuyItem={post_BuyItem}
+                        /> : <></>
                 }
             </div>
-            {
-                isOpenModal ? <ShopModal 
-                    itemInfo={selectedItem} 
-                    myPoint={myPoint} 
-                    closeModal={closeModal}
-                    post_BuyItem={post_BuyItem}
-                    /> : <></>
-            }
-        </div>
-        
+            <Footer/>
+        </>
     );
 }
 
