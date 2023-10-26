@@ -7,7 +7,6 @@ import PointRank from "../components/Main/PointRank";
 import ImageCards from "../components/Main/ImageCards";
 
 import '../styles/Main/Main.scss';
-import Footer from "../components/Footer";
 import { checkLogin } from "../util/auth";
 
 const Main = () => {
@@ -22,7 +21,7 @@ const Main = () => {
         <>
             <FullPageScroll>
                 <div className='MainSection'>
-                    <img src="./img/frame.png" className="Illustration"/>
+                    <img src="./img/frame.png" className="Illustration" alt="일러스트"/>
                 </div>
                 <div className='MainSection'>
                     {!isLoggedIn && <Carousels/> }

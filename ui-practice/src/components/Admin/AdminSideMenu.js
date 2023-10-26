@@ -16,7 +16,7 @@ const AdminSideMenu = () => {
             icon: <AiOutlineTeam className="AdminSideMenuIcon"/>
         },
         {
-            link:'item',
+            link:'shop',
             title:'아이템 관리',
             icon: <AiOutlineUnorderedList className="AdminSideMenuIcon"/>
         },

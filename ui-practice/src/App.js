@@ -1,5 +1,4 @@
 import Header from './components/Header';
-import Footer from './components/Footer';
 import Main from './pages/Main';
 import Notice from './pages/Notice';
 import NoticeCreate from './pages/NoticeCreate';
@@ -16,6 +15,8 @@ import MyTil from './pages/MyTil';
 import MyShop from './pages/MyShop';
 import MyProfile from './pages/MyProfile';
 import AdminUser from './pages/AdminUser';
+import AdminShop from './pages/AdminShop';
+import AdminOrder from './pages/AdminOrder';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -42,13 +43,14 @@ function App() {
             <Route path='/mypage/mytil' element={<MyTil/>}/>
             <Route path='/mypage/myshop' element={<MyShop/>}/>
             <Route path='/admin/user' element={<AdminUser/>}/>
+            <Route path='/admin/shop' element={<AdminShop/>}/>
+            <Route path='/admin/order' element={<AdminOrder/>}/>
             <Route path='/login' element={<Main/>}/>
             <Route path='/signup' element={<Main/>}/>
             <Route path='/search' element={<Main/>}/>
             <Route path='*' element={<Error/>}/>
           </Routes>
         </div>
-        {/* <Footer/> */}
       </Router>
     </>
   );
