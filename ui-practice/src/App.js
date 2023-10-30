@@ -17,6 +17,7 @@ import MyProfile from './pages/MyProfile';
 import AdminUser from './pages/AdminUser';
 import AdminShop from './pages/AdminShop';
 import AdminOrder from './pages/AdminOrder';
+import SignUp from './pages/SignUp';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdminShopCreate from './pages/AdminShopCreate';
@@ -47,7 +48,7 @@ function App() {
             <Route path='/admin/shop' element={<AdminShop/>}/>
             <Route path='/admin/shop/create' element={<AdminShopCreate/>}/>
             <Route path='/admin/order' element={<AdminOrder/>}/>
-            <Route path='/signup' element={<Main/>}/>
+            <Route path='/signup' element={<SignUp/>}/>
             <Route path='/search' element={<Main/>}/>
             <Route path='*' element={<Error/>}/>
           </Routes>

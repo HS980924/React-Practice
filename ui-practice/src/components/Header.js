@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
-import '../styles/Header/Header.scss';
+import { setCookie, removeCookie, checkLogin, getCookie } from '../util/auth';
+
 import LoginModal from './LoginModal';
 import Dropdown from './Header/Dropdown';
-import { setCookie, removeCookie, checkLogin } from '../util/auth';
+
+import '../styles/Header/Header.scss';
+import axios from 'axios';
 
 const Header = () => {
+
     const navigate = useNavigate();
     const location = useLocation();
     const path = location.pathname.split('/')[1];
@@ -15,6 +19,7 @@ const Header = () => {
     const [ searchParams, setSearchParams] = useSearchParams();
     const [ searchContent, setSearchContent ] = useState(null);
     const [ isLoginModal, setIsLoginModal ] = useState(false);
+    const [ myInfo, setMyInfo ] = useState(null);
     const [ view, setView ] = useState(false);
 
     const menus = [
@@ -78,9 +83,33 @@ const Header = () => {
         }
     }
 
+    const read_myInfomation = async() =>{
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/users/me`;
+            const response = await axios.get(url,{
+                headers:{
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials:true
+            });
+            if(response.status === 200){
+                setMyInfo(response.data.data);
+            }else{
+                alert('내 정보를 가져오는데 실패했습니다.');
+                navigate('/');
+            }
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/');
+        }
+    }
+
     useEffect(()=>{
         save_token();
         setIsLoggedIn(checkLogin('accessToken'));
+        if(getCookie('accessToken')){
+            read_myInfomation();
+        }
     },[]);
 
 
@@ -112,7 +141,7 @@ const Header = () => {
                     isLoggedIn ? 
                     <div className='ButtonBox'>
                         <div className='MyProfileBox'>
-                            <img src='https://avatars.githubusercontent.com/u/75660071?v=4' 
+                            <img src={myInfo?.profileImgUrl}
                                 className='MyProfile'
                                 onClick={()=>setView(!view)}
                             />

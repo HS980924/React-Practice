@@ -14,9 +14,8 @@ const MyProfile = () => {
     
     const navigate = useNavigate();
 
-    const [myInfo, setMyInfo] = useState(null);
-    const [myPoint, setMyPoint] = useState(null);
-    const [githubCommitCalendar, setGithubCalendar]  = useState(null);
+    const [ myInfo, setMyInfo ] = useState(null);
+    const [ myPoint, setMyPoint ] = useState(null);
 
     const read_myInfomation = async() =>{
         try{
@@ -114,7 +113,6 @@ const MyProfile = () => {
                                 colorScheme="light"/> 
                             : <></>
                         }
-                        {/* {githubCommitCalendar} */}
                     </div>
                 </div>
             </div>
