@@ -9,6 +9,7 @@ import { getCookie } from '../util/auth';
 import axios from "axios";
 
 import '../styles/Notice/NoticeCreate.scss';
+import Title from '../components/Title/Title';
 
 const NoticeCreate = () =>{
 
@@ -79,6 +80,7 @@ const NoticeCreate = () =>{
 
     return(
         <div className="NoticeCreateCotainer">
+            {/* <Title title={'공지사항 작성'}/> */}
             <h1 className='h1'>공지사항 작성</h1>
             <div>
                 <p className='p'>제목</p>

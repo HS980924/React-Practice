@@ -46,9 +46,13 @@ const Event = () => {
             const response = await axios.get(url,{withCredentials:true});
             if(response.status === 200){
                 setEventApiData(response.data.data);
+            }else{
+                alert(response.data.message);
+                navigate('/error');
             }
         }catch(e){
-            console.log(e);
+            alert(e.response.data.message);
+            navigate('/error');
         }
     }
 

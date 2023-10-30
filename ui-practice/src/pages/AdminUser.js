@@ -18,7 +18,6 @@ const AdminUser = () => {
                     <AdminSideMenu/>
                     <div className="AdminUserList">
                         <AdminUserList/>
-                        {/* <div className="AdminUserCreateButton" onClick={()=>setIsApprovalModal(!isApprovalModal)}>승인하기</div> */}
                         <AdminApprovalList/>
                     </div>
                 </div>

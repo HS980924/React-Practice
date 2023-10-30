@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCookie } from "../util/auth";
 import axios from "axios";
 
@@ -10,9 +11,11 @@ import Paging from "../components/Paging";
 
 import '../styles/Admin/AdminOrder.scss';
 
+
 const AdminOrder = () => {
 
     const pageSize = 10;
+    const navigate = useNavigate();
 
     const dummy = [
         {
@@ -68,9 +71,11 @@ const AdminOrder = () => {
                 // setTotalItemCnt(response.data.data.totalElements);
             }else{
                 alert(response.data.msg);
+                navigate('/error');
             }
         }catch(e){
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
 
@@ -94,6 +99,7 @@ const AdminOrder = () => {
             }
         }catch(e){
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
 

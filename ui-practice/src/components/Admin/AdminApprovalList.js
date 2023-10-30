@@ -1,15 +1,18 @@
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react"
 import { getCookie } from "../../util/auth";
-import Paging from "../Paging";
-import AdminUserItem from "./AdminUserItem";
+import axios from "axios";
 
-import '../../styles/Admin/AdminApprovalList.scss';
 import AdminApprovalItem from "./AdminApprovalItem";
 import ApprovalModal from "../Modal/ApprovalModal";
+import AdminUserItem from "./AdminUserItem";
+import Paging from "../Paging";
+
+import '../../styles/Admin/AdminApprovalList.scss';
 
 const AdminApprovalList = () => {
 
+    const navigate = useNavigate();
     const pageSize = 10;
     const [ approvalPageCnt, setApprovalPageCnt ] = useState(1);
     const [ totalItemCnt, setTotalItemCnt ] = useState(null);
@@ -31,9 +34,11 @@ const AdminApprovalList = () => {
                 setTotalItemCnt(response.data.data.totalElements);
             }else{
                 alert(response.data.data.msg);
+                navigate('/error');
             }
         }catch(e){
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
 
@@ -64,6 +69,7 @@ const AdminApprovalList = () => {
         }catch(e){
             setIsApprovalModal(false);
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
 

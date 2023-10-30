@@ -8,11 +8,13 @@
     background-color: rgba(0, 0, 0, 0.6);
     
     .LoginModalBox{
+        position: relative;
         width: 25%;
         height: 25%;
         background-color: white;
         border-radius: 1rem;
         margin: auto;
+        z-index: 999;
         .LoginModalHeader{
             margin-left: auto;
             margin-top: 0.5rem;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import Title from '../components/Title/Title';
 import ShopItem from '../components/Shop/ShopItem';
@@ -6,118 +7,64 @@ import ShopModal from '../components/Shop/ShopModal';
 import Footer from '../components/Footer';
 
 import '../styles/Shop/Shop.scss';
+import { getCookie } from '../util/auth';
+import { useNavigate } from 'react-router-dom';
 
-
-const dummyData = [
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노9",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "1",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노1",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "2",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노2",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "3",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노3",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "4",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노4",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "5",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노5",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "6",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노6",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "7",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노7",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "8",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-    {
-        "imgUrl": "이미지",
-        "itemName": "아메리카노8",
-        "itemDetail": "아메리카노 구매권입니다.",
-        "point": "8",
-        "createDate": "",
-        "modifiedDate":"",
-    },
-]
 
 const Shop = () => {
 
-    const [itemList, setItemList] = useState(dummyData);
+    const navigate = useNavigate();
+
+    const [itemList, setItemList] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [myPoint, setMyPoint] = useState(1000);
+    const [myPoint, setMyPoint] = useState(null);
 
-    // const read_ItemList = async() =>{
-    //     try{
-    //         const url = ''
-    //         const response = await axios.get(url);
-    //         if(response.status === 200){
-    //             setItemList(response.data.content);
-    //         }else{
-    //             // 모달창 띄우기
-    //         }
-    //     }catch(e){
-    //         console.log(e);
-    //     }
-    // }
+    const read_ItemList = async() =>{
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/sale-items`;
+            const response = await axios.get(url,{
+                headers:{
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials: true,
+            });
+            if(response.status === 200){
+                setItemList(response.data.data);
+            }else{
+                alert("데이터 통신에 실패했습니다.");
+                navigate('/error');
+            }
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/error');
+        }
+    }
 
-    // const read_MyPoint = async() =>{
-    //     try{
-    //         const url = ``;
-    //         const response = await axios.get(url);
-    //         if(response.status === 200){
-    //             setMyPoint(response.data.currentPoint);
-    //         }
-    //     }catch(e){
-    //         console.log(e);
-    //     }
-    // }
+    const read_MyPoint = async() =>{
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/points/me`;
+            const response = await axios.get(url,{
+                headers:{
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials: true,
+            });
+            if(response.status === 200){
+                console.log(response);
+                // setMyPoint(response.data.currentPoint);
+            }else{
+                alert('내 포인트를 가져오는데 실패했습니다.');
+                navigate('/error');    
+            }
+        }catch(e){
+            alert(e.response.data.message);
+            navigate('/error');
+        }
+    }
 
-    const onModal = (itemName) =>{
-        setSelectedItem(itemList?.find(item => item.itemName === itemName));
+    const onModal = (id) =>{
+        setSelectedItem(itemList?.find(item => item?.itemId === id));
         openModal();
     }
 
@@ -158,8 +105,8 @@ const Shop = () => {
     }
 
     useEffect(()=>{
-        // read_ItemList();
-        // read_MyPoint();
+        read_ItemList();
+        read_MyPoint();
     },[]);
 
     return(
@@ -168,9 +115,9 @@ const Shop = () => {
                 <Title title='Shop'/>
                 <div className='MyPoint'>현재 보유 포인트: {myPoint}</div>
                 <div className="ShopItemList">
-                    {
-                        itemList?.map(item => <ShopItem key={item.itemName} item={item} onModal={onModal}/>)
-                    }
+                {
+                    itemList?.map(item => <ShopItem key={item?.itemId} item={item} onModal={onModal}/>)
+                }
                 </div>
                 {
                     isOpenModal ? <ShopModal 

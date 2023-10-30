@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
-import { AiOutlineSearch, AiFillGithub } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import '../styles/Header/Header.scss';
 import LoginModal from './LoginModal';
 import Dropdown from './Header/Dropdown';

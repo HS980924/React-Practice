@@ -34,6 +34,7 @@ const AdminShop = () => {
             "modifiedDate":"2023-10-27",
         }
     ]
+    
     const navigate = useNavigate();
     const pageSize = 10;
     const [ pageCnt, setPageCnt ] = useState(1);
@@ -57,16 +58,18 @@ const AdminShop = () => {
                 // setTotalItemCnt(response.data.data.totalElements);
             }else{
                 alert(response.data.msg);
+                navigate('/error');
             }
         }catch(e){
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
 
     
     const onRemove = async(id) => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/admin/sale-items/${id}`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/sale-items/${id}`;
             const response = await axios.delete(url,{
                 headers:{
                     Authorization: `Bearer ${getCookie('accessToken')}`,
@@ -81,9 +84,9 @@ const AdminShop = () => {
             }
         }catch(e){
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
-
 
     const onToggle = () => {
         navigate('/admin/item/create');
@@ -100,7 +103,7 @@ const AdminShop = () => {
             <div className="AdminShopListBox">
                 <AdminSideMenu/>
                 <div className="AdminShopList">
-                    <div className="AdminShopRegistButton">상품 등록</div>
+                    <div className="AdminShopRegistButton" onClick={()=>navigate('/admin/shop/create')}>상품 등록</div>
                     <div className="AdminShopListHeader">
                         <div className="AdminShopListName">상품명</div>
                         <div className="AdminShopListPrice">가격</div>

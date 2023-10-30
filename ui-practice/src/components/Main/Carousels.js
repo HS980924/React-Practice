@@ -1,6 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/Main/Carousel.scss';
 import { useState } from 'react';
 
@@ -11,7 +10,7 @@ const Carousels = () => {
         <div className='CarouselBox'>
             <Carousel>
                 {profile.map(i=>
-                    <Carousel.Item key={i} className='slide' interval={4000}>
+                    <Carousel.Item key={i} interval={4000}>
                         <img
                             className="d-block w-100"
                             style={{ height: "400px", zIndex: 2 }}

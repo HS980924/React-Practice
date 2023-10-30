@@ -1,6 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 import { getCookie } from "../../util/auth";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import Paging from "../Paging";
 import AdminUserItem from "./AdminUserItem";
 
@@ -8,6 +10,7 @@ import '../../styles/Admin/AdminUserList.scss';
 
 const AdminUserList = () => {
 
+    const navigate = useNavigate();
     const pageSize = 10;
     const [ pageCnt, setPageCnt ] = useState(1);
     const [ totalItemCnt, setTotalItemCnt ] = useState(null);
@@ -28,9 +31,11 @@ const AdminUserList = () => {
                 setTotalItemCnt(response.data.data.totalElements);
             }else{
                 alert(response.data.msg);
+                navigate('/error');
             }
         }catch(e){
             alert(e.response.data.message);
+            navigate('/error');
         }
     }
     useEffect(()=>{

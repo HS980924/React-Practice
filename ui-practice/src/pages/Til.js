@@ -30,6 +30,11 @@ const Til = () => {
     const [ totalPageNum, setTotalPageNum ] = useState(null);
     const [ apiTilDataList, setApiTilDataList ] = useState([]);
     const [ myInfo, setMyInfo ] = useState(null);
+    const [ search, setSearch ] = useState(null);
+
+    const onHandleSearch = (e) => {
+        setSearch(e.target.value);
+    }
 
     const read_tilDataAPi = async() => {
         try{
@@ -109,8 +114,10 @@ const Til = () => {
     };
     
     useEffect(()=>{
-        read_tilDataAPi();
-        read_myInfo();
+        if(!search){
+            read_tilDataAPi();
+            read_myInfo();
+        }
     },[]);
 
     useEffect(() => {
@@ -131,7 +138,9 @@ const Til = () => {
             <div className="SearchBox">
                 <div className="SearchBar">
                     <AiOutlineSearch className="SearchIcon"/>
-                    <input className="SearchInput"/>
+                    <input 
+                        className="SearchInput"
+                        onChange={onHandleSearch}/>
                 </div>
             </div>
             <div className="TilListBox">

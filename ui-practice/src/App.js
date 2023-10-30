@@ -19,6 +19,7 @@ import AdminShop from './pages/AdminShop';
 import AdminOrder from './pages/AdminOrder';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AdminShopCreate from './pages/AdminShopCreate';
 
 function App() {
 
@@ -44,8 +45,8 @@ function App() {
             <Route path='/mypage/myshop' element={<MyShop/>}/>
             <Route path='/admin/user' element={<AdminUser/>}/>
             <Route path='/admin/shop' element={<AdminShop/>}/>
+            <Route path='/admin/shop/create' element={<AdminShopCreate/>}/>
             <Route path='/admin/order' element={<AdminOrder/>}/>
-            <Route path='/login' element={<Main/>}/>
             <Route path='/signup' element={<Main/>}/>
             <Route path='/search' element={<Main/>}/>
             <Route path='*' element={<Error/>}/>

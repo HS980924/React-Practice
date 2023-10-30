@@ -37,7 +37,7 @@ const Notice = () =>{
             // setIsLodding(false);
         }catch(e){
             alert(e.response.data.message);
-            navigate('/');
+            navigate('/error');
         }
     }
 
@@ -51,7 +51,6 @@ const Notice = () =>{
     useEffect(()=>{
         read_NoticeList();
     },[selectedPage]);
-
 
     return(
         <>

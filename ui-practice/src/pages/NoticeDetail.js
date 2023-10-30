@@ -20,7 +20,6 @@ const NoticeDetail = () =>{
     const pathList = location.pathname.split('/');
     const postId = pathList[pathList.length-1];
 
-    const [ isLoggedIn, setIsLoggedIn ] = useState(true);
     const [ noticeInfo, setNoticeInfo ] = useState(null);
     const [ postFile, setPostFile ] = useState(null);
     const [ myInfo, setMyInfo ] = useState(null);    
@@ -39,12 +38,12 @@ const NoticeDetail = () =>{
                 setNoticeInfo(response.data.data);
             }else{
                 alert('데이터 통신에 실패하였습니다.');
-                navigate('/');
+                navigate('/error');
             }
             
         }catch(e){
             alert(e.response.data.message);
-            navigate('/');
+            navigate('/error');
         }
     };
 
@@ -90,7 +89,7 @@ const NoticeDetail = () =>{
             
         }catch(e){
             alert(e.response.data.message);
-            navigate('/');
+            navigate('/error');
         }
     }
 
@@ -130,21 +129,6 @@ const NoticeDetail = () =>{
             {
                 postId ? <CommentForm id={postId} myInfo={myInfo} /> : <></>
             }
-            {/* <div className="NoticeComment">
-                <div className="CommentCnt">댓글 {comments?.length}</div>
-                {
-                    comments?.map((comment)=>
-                        <CommentItem key={comment.replyId} commentInfo={comment}/>
-                    )
-                }
-                {
-                    totalCommentPage > commentPage ? 
-                    <div ref={setTarget}>
-                        {isLoadedComment && <p>Loading...</p>}
-                    </div>
-                    : <></>
-                }
-            </div> */}
         </div>
     );
 }

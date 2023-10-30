@@ -14,8 +14,9 @@
 .TilItemBox2{
     position : relative;
     margin: auto;
-    margin-top: 3%;
-    width: 90%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
     height: auto;
     box-shadow: 1px 1px 3px 1px #dadce0;
     border-radius: 1em;
@@ -111,6 +112,7 @@
         height: auto;
         overflow: hidden;
         margin: auto;
+        padding-top: 1rem;
         padding-bottom: 5%;
     }
 
