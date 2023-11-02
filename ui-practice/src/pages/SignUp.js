@@ -1,23 +1,29 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import SignUpForm from '../components/SignUp/SignUpForm';
 import Footer from '../components/Footer';
 
 import '../styles/SignUp/SignUp.scss';
+import { getCookie, tokenDecode } from '../util/auth';
 
 const SignUp = () =>{
-
+    
     const navigate = useNavigate();
-    const [ searchParams, setSearchParams ] = useSearchParams();
+    const [ isGuest, setIsGuest ] = useState(false);
 
     useEffect(()=>{
-        let token = searchParams.get('accessToken');
-        if(!token){
-            navigate('/error');
+        const payload = tokenDecode(getCookie('accessToken'));
+        if(payload){
+            if(payload.role === 'ROLE_GUEST'){
+                setIsGuest(true);
+            }
         }
     },[]);
 
+    if(!isGuest){
+        navigate('/error');
+    }
     return(
         <>
             <div className="SignInContainer">

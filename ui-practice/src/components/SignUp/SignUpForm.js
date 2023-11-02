@@ -7,7 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 import '../../styles/SignUp/SignUpForm.scss';
-import { getCookie } from '../../util/auth';
+import { getCookie, tokenDecode } from '../../util/auth';
+import { uploadFile } from '../../util/s3Upload';
 
 
 const SignUpForm = () =>{
@@ -17,7 +18,6 @@ const SignUpForm = () =>{
     const [ isValidName, setIsValidName ] = useState(false);
     const [ isValidPhoneNum, setIsValidPhoneNum ] = useState(false);
     const [ isValidEmail, setIsValidEmail ] = useState(false);
-    const [ isValidProfile, setIsValidProfile ] = useState(false);
     const [ isValidAll, setIsValidAll ] = useState(true);
     
     const [ name, setName ] = useState(null);
@@ -27,7 +27,7 @@ const SignUpForm = () =>{
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(isValidName && isValidPhoneNum && isValidEmail && isValidProfile){
+        if(isValidName && isValidPhoneNum && isValidEmail){
             setIsValidAll(true);
             post_signIn();
         }
@@ -62,21 +62,26 @@ const SignUpForm = () =>{
     const handleInputProfile = (e) => {
         e.preventDefault();
         if(e.target.files){
-            const uploadFile = e.target.files[0];
-            setProfile(uploadFile);
-            setIsValidProfile(true);
-        }else{
-            setIsValidProfile(false);
+            const file = e.target.files[0];
+            setProfile(file);
         }
     };
 
     const post_signIn = async () =>{
         try{
+            let token = tokenDecode(getCookie('accessToken'));
+            let imgUrl = null;
+            let res = null;
+            if(profile){
+                imgUrl = await uploadFile(profile);
+            }else{
+                res = await axios.get(`https://api.github.com/users/${token?.githubId}`);
+            }
             const userInfo = {
                 "username": name,
                 "phoneNumber": phoneNum,
                 "email": email,
-                "profileImgUrl": 'test.com/12',
+                "profileImgUrl": imgUrl ? imgUrl : res.data.avatar_url,
             };
             const url = `${process.env.REACT_APP_API_SERVER}/api/users/infoform`;
             const response = await axios.post(url,userInfo,{
@@ -93,7 +98,7 @@ const SignUpForm = () =>{
             }
         }catch(e){
             alert(e.response.data.message);
-            navigate('/error');
+            console.log(e.response);
         }
     }
 
@@ -140,11 +145,8 @@ const SignUpForm = () =>{
                     <Form.Label className='Label'>프 로 필</Form.Label>
                     <Form.Control
                         className='Control'
-                        required
                         placeholder="Profile"
                         type='file'
-                        isInvalid={!isValidProfile}
-                        isValid={isValidProfile}
                         onChange={handleInputProfile}
                     />
                 </Form.Group>

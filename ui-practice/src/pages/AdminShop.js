@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../util/auth";
+import { getCookie, isCheckAdmin } from "../util/auth";
 import axios from "axios";
 
 import AdminSideMenu from "../components/Admin/AdminSideMenu";
@@ -41,6 +41,7 @@ const AdminShop = () => {
     const [ totalItemCnt, setTotalItemCnt ] = useState(2);
     // const [ shopItemList, setShopItemlist ] = useState(dummy);
     const [ shopItemList, setShopItemlist ] = useState([]);
+    const [ isAdmin, setIsAdmin ] = useState(false);
 
     const read_ItemList = async() => {
         try{
@@ -94,8 +95,13 @@ const AdminShop = () => {
 
     useEffect(()=>{
         read_ItemList();
+        setIsAdmin(isCheckAdmin());
     },[pageCnt]);
 
+    
+    if(!isAdmin){
+        navigate('/error');
+    }
     return(
         <>
         <div className="AdminShopContainer">

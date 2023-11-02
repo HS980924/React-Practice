@@ -22,7 +22,7 @@ const NoticeDetail = () =>{
 
     const [ noticeInfo, setNoticeInfo ] = useState(null);
     const [ postFile, setPostFile ] = useState(null);
-    const [ myInfo, setMyInfo ] = useState(null);    
+    const [ myInfo, setMyInfo ] = useState(null);
 
     
     const read_NoticeItem = async() => {
@@ -36,6 +36,7 @@ const NoticeDetail = () =>{
             });
             if(response.status === 200){
                 setNoticeInfo(response.data.data);
+                console.log(response.data);
             }else{
                 alert('데이터 통신에 실패하였습니다.');
                 navigate('/error');

@@ -1,22 +1,7 @@
 import {Cookies} from 'react-cookie';
+import { jwtDecode } from "jwt-decode";
 
 const cookies = new Cookies();
-
-// export const loginCheck = () => {
-//     let accessToken = localStorage.getItem("login");
-//     if(accessToken){
-//         return true
-//     }
-//     return false
-// }
-
-// export const login = () => {
-//     localStorage.setItem("login","on");
-// }
-
-// export const logout = () => {
-//     localStorage.removeItem("login");
-// }
 
 export const setCookie = (name, value, options) => {
     return cookies.set(name, value, {...options}); 
@@ -34,6 +19,23 @@ export const checkLogin = (name) => {
     let accessToken = cookies.get(name);
     if(accessToken){
         return true;
+    }
+    return false;
+}
+
+export const tokenDecode = (token) => {
+    const payload = jwtDecode(token);
+    return payload;
+}
+
+export const isCheckAdmin = () => {
+    let token = getCookie('accessToken')
+    if(token){
+        const payload = jwtDecode(token);
+        if(payload.role === 'ROLE_ADMIN'){
+            return true;
+        }
+        return false;
     }
     return false;
 }

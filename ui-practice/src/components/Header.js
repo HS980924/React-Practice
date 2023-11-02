@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
-import { setCookie, removeCookie, checkLogin, getCookie } from '../util/auth';
+import { setCookie, removeCookie, checkLogin, getCookie, tokenDecode } from '../util/auth';
 
 import LoginModal from './LoginModal';
 import Dropdown from './Header/Dropdown';
@@ -79,7 +79,14 @@ const Header = () => {
     const save_token = () => {
         const accessToken = searchParams.get('accessToken');
         if(accessToken){
-            setCookie('accessToken',accessToken);
+            let payload = tokenDecode(accessToken);
+            const options = {
+                expires: new Date(payload?.exp*1000),
+            }
+            setCookie('accessToken',accessToken,options);
+            if(payload?.role === 'ROLE_GUEST'){
+                navigate('/signup');
+            }
         }
     }
 

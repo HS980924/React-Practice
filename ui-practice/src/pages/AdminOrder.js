@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../util/auth";
+import { getCookie, isCheckAdmin } from "../util/auth";
 import axios from "axios";
 
 import AdminSideMenu from "../components/Admin/AdminSideMenu";
@@ -91,7 +91,6 @@ const AdminOrder = () => {
             });
             if(response.status === 200){
                 alert('주문 승인이 완료되었습니다.');
-                console.log(response);
                 let newOrder = response.data.data.content;
                 setOrderList(orderList => orderList.map(order => order?.orderId === id ? newOrder : order));
             }else{
@@ -104,6 +103,10 @@ const AdminOrder = () => {
     }
 
     useEffect(()=>{
+        const isAdmin = isCheckAdmin();
+        if(!isAdmin){
+            navigate('/error');
+        }
         // read_OrderList();
     },[pageCnt]);
 

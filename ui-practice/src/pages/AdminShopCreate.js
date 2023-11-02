@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
-import AWS from 'aws-sdk';
 import axios from 'axios';
 
 import Footer from "../components/Footer";
@@ -9,7 +8,8 @@ import RegistButton from '../components/RegistButton';
 import Title from "../components/Title/Title";
 
 import '../styles/Admin/AdminShopCreate.scss';
-import { getCookie } from '../util/auth';
+import { getCookie, isCheckAdmin } from '../util/auth';
+import { uploadFile } from '../util/s3Upload';
 
 
 const AdminShopCreate = () => {
@@ -47,24 +47,10 @@ const AdminShopCreate = () => {
         setItemImg(null);
     };
 
-    const uploadFile = async() => {
-        const s3 = new AWS.S3();
-
-        const params = {
-            ACL: 'public-read',
-            Bucket: process.env.REACT_APP_S3_BUCKET,
-            Key: `${Date.now()}${itemImg?.name}`,
-            Body: itemImg,
-        };
-
-        const uploadFile = await s3.upload(params).promise();
-        return uploadFile.Location;
-    }
-
     const post_ItemInfo = async() => {
         try{
             if(itemName && itemImg && itemPoint && itemDescription){
-                const imgUrl = await uploadFile();
+                const imgUrl = await uploadFile(itemImg);
                 console.log(imgUrl);
                 if(imgUrl){
                     const postData = {
@@ -98,10 +84,10 @@ const AdminShopCreate = () => {
     }
 
     useEffect(()=>{
-        AWS.config.update({
-            accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-            secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-        });
+        const isAdmin = isCheckAdmin();
+        if(!isAdmin){
+            navigate('/error');
+        }
     },[]);
 
     return(

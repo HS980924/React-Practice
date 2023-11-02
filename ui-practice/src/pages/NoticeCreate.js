@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
 
 import TextEditor from '../components/TextEditor';
 import RegistButton from '../components/RegistButton';
-import { getCookie } from '../util/auth';
+import { getCookie, isCheckAdmin } from '../util/auth';
 
 import axios from "axios";
 
 import '../styles/Notice/NoticeCreate.scss';
 import Title from '../components/Title/Title';
+import Footer from '../components/Footer';
+import { uploadFileList } from '../util/s3Upload';
 
 const NoticeCreate = () =>{
 
@@ -18,6 +20,7 @@ const NoticeCreate = () =>{
     const [ title, setTitle ] = useState(null);
     const [ content, setContent ] = useState(null);
     const [ fileNameList, setFileNameList ] = useState([]);
+    const [ fileList, setFileList ] = useState([]);
 
     const onHandleTitle = (e) => {
         setTitle(e.target.value);
@@ -25,6 +28,7 @@ const NoticeCreate = () =>{
 
     const onHandleAddFile = (e) => {
         const fileLists = e.target.files;
+        
         let fileNameLists = [...fileNameList];
 
         for(let i=0; i < fileLists.length; i++){
@@ -36,10 +40,12 @@ const NoticeCreate = () =>{
         }
 
         setFileNameList(fileNameLists);
+        setFileList(fileList => fileList.concat([...fileLists]));
     }
 
     const onHandleDeleteFile = (id) => {
         setFileNameList(fileNameList.filter((_, index) => index !== id));
+        setFileList(fileList.filter((_, index) => index !== id));
     };
 
     const onHandleCancel = () => {
@@ -49,10 +55,14 @@ const NoticeCreate = () =>{
     const post_noticeInfo = async() => {
         if (title && content){
             try{
+                let fileUrl = null;
+                if(fileList){
+                    fileUrl = await uploadFileList(fileList);
+                }
                 const postData = {
                     title:title,
                     content:content,
-                    fileUrl: null,
+                    fileUrl: fileUrl,
                 }
                 const url = `${process.env.REACT_APP_API_SERVER}/api/posts`;
                 const response = await axios.post(url,postData,{
@@ -78,11 +88,18 @@ const NoticeCreate = () =>{
         
     };
 
+    useEffect(()=>{
+        const isAdmin = isCheckAdmin();
+        if(!isAdmin){
+            navigate('/error');
+        }
+    },[]);
+
     return(
+        <>
         <div className="NoticeCreateCotainer">
-            {/* <Title title={'공지사항 작성'}/> */}
-            <h1 className='h1'>공지사항 작성</h1>
-            <div>
+            <Title title={'공지사항 작성'}/>
+            <div className='NoticeTitleBox'>
                 <p className='p'>제목</p>
                 <input
                     placeholder='제목을 입력해주세요.'
@@ -120,6 +137,8 @@ const NoticeCreate = () =>{
                 onHandleCancel={onHandleCancel}
                 onHandleSave={post_noticeInfo}/>
         </div>
+        <Footer/>
+        </>
     );
 }
 

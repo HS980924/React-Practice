@@ -5,10 +5,14 @@ import '../styles/Button/CreateButton.scss';
 const CreateButton = ({link}) => {
     return(
         <div className="CreateBox">
-            <Link to={link} className="CreateForm">
-                <BiSolidPencil className="PencilLogo"/>
-                <p className="Write">작성하기</p>
-            </Link>
+            {
+                link ? 
+                <Link to={link} className="CreateForm">
+                    <BiSolidPencil className="PencilLogo"/>
+                    <p className="Write">작성하기</p>
+                </Link>
+                : <></>
+            }
         </div>
     )
 }

@@ -18,7 +18,7 @@ const AdminUserItem = ({userInfo}) => {
         try{
             const url = `${process.env.REACT_APP_API_SERVER}/api/admin/users/role/${userInfo?.githubId}`;
             const data = {
-                role: (userInfo?.role === "ROLE_ADMIN") ? "ROLE_GUEST" : "ROLE_ADMIN",
+                role: (userInfo?.role === "ROLE_ADMIN") ? "ROLE_USER" : "ROLE_ADMIN",
             };
             const response = await axios.post(url,data,{
                 headers:{

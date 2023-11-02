@@ -8,7 +8,7 @@ import Title from "../components/Title/Title";
 import Paging from "../components/Paging";
 
 import axios from 'axios';
-import { getCookie } from "../util/auth";
+import { getCookie, isCheckAdmin } from "../util/auth";
 
 import '../styles/Notice/Notice.scss';
 import Footer from "../components/Footer";
@@ -21,6 +21,7 @@ const Notice = () =>{
     const [ selectedPage, setSelectedPage ] = useState(1);
     const [ totalItemCnt, setTotalItemCnt ] = useState(null);
     const [ noticeList, setNoticeList ] = useState([]);
+    const [ isAdmin, setIsAdmin ] = useState(false);
 
     const read_NoticeList = async() => {
         try{
@@ -50,6 +51,7 @@ const Notice = () =>{
 
     useEffect(()=>{
         read_NoticeList();
+        setIsAdmin(isCheckAdmin());
     },[selectedPage]);
 
     return(
@@ -59,17 +61,17 @@ const Notice = () =>{
                 <CreateButton link={'/notice/create'}/> */}
                 <div className="NoticeListBox">
                     <Title title='공지사항'/>
-                    <CreateButton link={'/notice/create'}/>
+                    <CreateButton link={ isAdmin ? '/notice/create' : null}/>
                     {
                         noticeList?.map(notice => 
                             <NoticeItem key={notice.postId} noticeItem={notice}/>
                         )
                     } 
                     <Paging
-                    pageNum={selectedPage}
-                    countPerPage={pageSize}
-                    totalItems={totalItemCnt ? totalItemCnt : 0}
-                    handlePage={setSelectedPage}
+                        pageNum={selectedPage}
+                        countPerPage={pageSize}
+                        totalItems={totalItemCnt ? totalItemCnt : 0}
+                        handlePage={setSelectedPage}
                 />
                 </div>
             </div>
