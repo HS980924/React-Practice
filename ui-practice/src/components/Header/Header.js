@@ -6,7 +6,7 @@ import { setCookie, removeCookie, checkLogin, getCookie, tokenDecode } from '../
 import LoginModal from '../Modal/LoginModal';
 import Dropdown from './Dropdown';
 
-import '../styles/Header/Header.scss';
+import '../../styles/Header/Header.scss'
 import axios from 'axios';
 
 const Header = () => {

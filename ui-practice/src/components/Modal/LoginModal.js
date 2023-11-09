@@ -2,7 +2,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { MdOutlineCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-import '../styles/Modal/LoginModal.scss';
+import '../../styles/Modal/LoginModal.scss';
 
 const LoginModal = ({onCancel}) => {
     
