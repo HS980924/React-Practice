@@ -14,18 +14,18 @@ const MyShop = () =>{
 
     const navigate = useNavigate();
 
-    const OrderMenu = [ '사용가능', '사용완료' ]
+    const OrderMenu = [ '승인 대기', '승인 완료' ]
 
-    const [myOrderList, setMyOrderList] = useState([]);
-    const [selectedMenu, setSelectedMenu] = useState(0);
-    const [isUsedItem, setIsUsedItem] = useState("Pending approval")
+    const [ myOrderList, setMyOrderList ] = useState([]);
+    const [ selectedMenu, setSelectedMenu ] = useState(0);
+    const [ isUsedItem, setIsUsedItem ] = useState(false);
 
     const onClickMenu = (idx) =>{
         setSelectedMenu(idx);
         if(idx){
-            setIsUsedItem('Already Approved');
+            setIsUsedItem(false);
         }else{
-            setIsUsedItem('Pending approval');
+            setIsUsedItem(true);
         }
     }
 
@@ -61,7 +61,7 @@ const MyShop = () =>{
                 <div className="MyItemOrderBox">
                     <div className="UsedItemButtons">
                         {
-                            OrderMenu.map((menu,idx) =>
+                            OrderMenu?.map((menu,idx) =>
                                 <div 
                                     className={selectedMenu === idx ? "SelectedOrderMenu" : "OrderMenu"}
                                     onClick={()=>onClickMenu(idx)}
@@ -73,8 +73,8 @@ const MyShop = () =>{
                     <div className="ItemListBox">
                         {
                             myOrderList?.map(order => 
-                                isUsedItem === order.useStatus &&
-                                <MyShopItem key={order.orderId} item={order.item}/>)
+                                isUsedItem === order?.useStatus &&
+                                <MyShopItem key={order?.orderId} item={order?.item}/>)
                         }
                     </div>
                 </div>

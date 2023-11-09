@@ -139,7 +139,6 @@ const MyProfile = () => {
                 withCredentials:true
             });
             if(response.status === 200){
-                console.log(response);
                 setMyPoint(response.data.data);
             }else{
                 alert('내 포인트를 가져오는데 실패했습니다.');
@@ -199,8 +198,8 @@ const MyProfile = () => {
                             </div>
                         </div>
                         <div className="MyPointBox">
-                            <div className="MyGetPoint">누적 포인트&nbsp;&nbsp;&nbsp;{myPoint?.totalPoint} pt</div>
-                            <div className="MyGetPoint">주간 포인트&nbsp;&nbsp;&nbsp;{myPoint?.currentPoint} pt</div>
+                            {/* <div className="MyGetPoint">누적 포인트&nbsp;&nbsp;&nbsp;{myPoint?.totalPoint} pt</div> */}
+                            <div className="MyGetPoint">보유 포인트&nbsp;&nbsp;&nbsp;{myPoint?.currentPoint} pt</div>
                             <div className='PointButtonBox'>
                                 <div className='RemoveButton' onClick={()=>onDeleteClick()}>회원탈퇴</div>
                                 <div className='SaveButton'  onClick={()=>put_myInfo()}>저장</div>

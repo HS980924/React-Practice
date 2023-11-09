@@ -34,6 +34,7 @@ const AdminOrder = () => {
                 let newOrderList = response.data.data;
                 setOrderList(newOrderList);
                 setTotalItemCnt(newOrderList?.length);
+                console.log(newOrderList);
                 // setTotalItemCnt(response.data.data.totalElements);
             }else{
                 alert(response.data.msg);
@@ -57,7 +58,8 @@ const AdminOrder = () => {
             });
             if(response.status === 200){
                 alert('주문 승인이 완료되었습니다.');
-                let newOrder = response.data.data.content;
+                let newOrder = response.data.data;
+                console.log(newOrder);
                 setOrderList(orderList => orderList.map(order => order?.orderId === id ? newOrder : order));
             }else{
                 alert(response.data.message);
@@ -78,36 +80,36 @@ const AdminOrder = () => {
 
     return(
         <>
-        <div className="AdminOrderContainer">
-            <Title title={"주문 관리"}/>
-            <div className="AdminShopListBox">
-                <AdminSideMenu/>
-                <div className="AdminOrderList">
-                    <div className="AdminOrderListHeader">
-                        <div className="AdminOrderListUserName">신청자</div>
-                        <div className="AdminOrderListCreate">주문 날짜</div>
-                        <div className="AdminOrderListItemName">주문 상품</div>
-                        <div className="AdminOrderListStatus">승인 여부</div>
-                    </div>
-                    {
-                        orderList?.map(order => 
-                            <AdminOrderItem
-                                key={order?.orderId} 
-                                orderInfo={order}
-                                onToggle={post_OrderApproval}
+            <div className="AdminOrderContainer">
+                <Title title={"주문 관리"}/>
+                <div className="AdminShopListBox">
+                    <AdminSideMenu/>
+                    <div className="AdminOrderList">
+                        <div className="AdminOrderListHeader">
+                            <div className="AdminOrderListUserName">신청자</div>
+                            <div className="AdminOrderListCreate">주문 날짜</div>
+                            <div className="AdminOrderListItemName">주문 상품</div>
+                            <div className="AdminOrderListStatus">승인 여부</div>
+                        </div>
+                        {
+                            orderList?.map(order => 
+                                <AdminOrderItem
+                                    key={order?.orderId} 
+                                    orderInfo={order}
+                                    onToggle={post_OrderApproval}
+                                />
+                            )
+                        }
+                        <Paging
+                            pageNum={pageCnt}
+                            countPerPage={pageSize}
+                            totalItems={totalItemCnt ? totalItemCnt : 0}
+                            handlePage={setPageCnt}
                             />
-                        )
-                    }
-                    <Paging
-                        pageNum={pageCnt}
-                        countPerPage={pageSize}
-                        totalItems={totalItemCnt ? totalItemCnt : 0}
-                        handlePage={setPageCnt}
-                        />
+                    </div>
                 </div>
             </div>
-        </div>
-        <Footer/>
+            <Footer/>
         </>
     );
 }

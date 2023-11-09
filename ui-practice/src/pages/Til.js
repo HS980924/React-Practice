@@ -66,7 +66,6 @@ const Til = () => {
                 setPageNumber((pageNumber)=>pageNumber+1);
                 setIsLoaded(false);
                 setTotalPageNum(response.data.totalPages);
-                console.log(response.data.data.content);
             }else{
                 // 모달창 데이터 전송 오류
                 alert('TIL 데이터를 불러오는데 실패했습니다.');

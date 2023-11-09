@@ -88,6 +88,29 @@ const CommentForm = ({id, myInfo}) =>{
         }
     }
 
+    const onRemove = async(replyId) => {
+        try{
+            const url = `${process.env.REACT_APP_API_SERVER}/api/posts/${id}/replies/${replyId}`;
+            const response = await axios.delete(url,
+                {
+                    headers: {
+                        Authorization: `Bearer ${getCookie('accessToken')}`
+                    },
+                    withCredentials:true
+                }
+            );
+            if(response.status === 200){
+                alert('댓글이 삭제되었습니다.');
+                setComments(comments=> comments.filter(comm => comm.replyId !== replyId));
+            }else{
+                alert(response.data.message);
+            }
+            
+        }catch(e){
+            alert(e.response.data.message);
+        }
+    }
+
     const onIntersect = async ([ entry ], observer) => {
         if (entry.isIntersecting && !isLoadedComment) {
             observer.unobserve(entry.target);
@@ -149,7 +172,11 @@ const CommentForm = ({id, myInfo}) =>{
                 }
                 {
                     comments?.map((com)=>
-                        <CommentItem key={com.replyId} commentInfo={com}/>
+                        <CommentItem 
+                            key={com.replyId} 
+                            commentInfo={com}
+                            myInfo={myInfo}
+                            onRemove={onRemove}/>
                     )
                 }
                 {

@@ -3,7 +3,7 @@ import '../../styles/Shop/MyShopItem.scss';
 const MyShopItem = ({item}) => {
     return(
         <div className="MyShopItemBox">
-            <div className='MyItemTitle'>{item?.imgUrl}</div>
+            <img src={item?.imgUrl} className='MyItemTitle' alt="ItemImg"/>
             <div className='MyItemName'>{item?.itemName}</div>
             <div className='MyItemPoint'>{item?.point}pt</div>
         </div>

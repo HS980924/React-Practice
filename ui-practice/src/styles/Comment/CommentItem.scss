@@ -9,6 +9,7 @@
     border-bottom: 0.1rem solid #D2D4D9;
     
     .CommentItemHeader{
+        position: relative;
         display: flex;
         align-items: center;
         width: 100%;
@@ -30,6 +31,40 @@
             justify-content: center;
             margin-left: 0.5rem;
             font-weight: bold;
+        }
+        .CommentDots{
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: auto;
+            cursor: pointer;
+        }
+    }
+    .CommentDropMenuBox{
+        display: flex;
+        align-items: center;
+        width: 5.5rem;
+        height: 3rem;
+        position: absolute;
+        top: 100%;
+        left: 97.5%;
+        margin: auto;
+        padding: 0;
+        box-sizing: border-box;
+        border: 0.15rem solid #e5e7eb;
+        border-radius: 0.725rem;
+        background-color: white;
+        .CommentDropMenu{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            color:black;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+            &:hover{
+                color:#0090F9;
+            }
         }
     }
 

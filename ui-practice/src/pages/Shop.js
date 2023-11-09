@@ -52,8 +52,7 @@ const Shop = () => {
                 withCredentials: true,
             });
             if(response.status === 200){
-                console.log(response);
-                // setMyPoint(response.data.currentPoint);
+                setMyPoint(response.data.data.currentPoint);
             }else{
                 alert('내 포인트를 가져오는데 실패했습니다.');
                 navigate('/error');    
@@ -86,28 +85,34 @@ const Shop = () => {
         }
     }
 
-    const post_BuyItem = async() =>{
+    const post_BuyItem = async(itemId) =>{
         try{
             if(isCheckBuy()){
-                
-                // const data = {
 
-                // }
-                // const url = ``;
-                // const response = await axios.post(url,data);
-                // if(response.status === 200){
-                //     closeModal();
-                // }
+                const url = `${process.env.REACT_APP_API_SERVER}/api/items/${itemId}/orders`;
+                const response = await axios.post(url,null,{
+                    headers:{
+                        Authorization: `Bearer ${getCookie('accessToken')}`
+                    },
+                    withCredentials:true
+                });
+                if(response.status === 200){
+                    alert('구매가 완료되었습니다.');
+                }else{
+                    alert(response.data.message);
+                }
                 closeModal(); //나중에 지우면 됨
+            }else{
+                alert('포인트가 부족하여 구매할 수 없습니다.');
             }
         }catch(e){
-
+            alert(e.response.data.message);
         }
     }
 
     useEffect(()=>{
         read_ItemList();
-        // read_MyPoint();
+        read_MyPoint();
     },[]);
 
     return(
