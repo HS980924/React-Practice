@@ -59,7 +59,7 @@ const AdminShopCreate = () => {
                         itemName: itemName,
                         point: parseInt(itemPoint)
                     };
-                    const url = `${process.env.REACT_APP_API_SERVER}/api/sale-items`;
+                    const url = `${process.env.REACT_APP_API_SERVER}/api/admin/items`;
                     const response = await axios.post(url,postData,{
                         headers: {
                             Authorization: `Bearer ${getCookie('accessToken')}`

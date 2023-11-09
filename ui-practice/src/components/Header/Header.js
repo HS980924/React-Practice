@@ -157,6 +157,7 @@ const Header = () => {
                             <img src={myInfo?.profileImgUrl}
                                 className='MyProfile'
                                 onClick={()=>setView(!view)}
+                                alt='프로필'
                             />
                             {
                                 view && <Dropdown onHandleLogout={onHandleLogout} onSetView={setView}/>

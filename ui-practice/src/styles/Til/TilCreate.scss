@@ -6,6 +6,15 @@
     margin-bottom: 1%;
     font-family : 'gulim', 'gothic';
 
+    
+    .TilCreateTitleBox{
+        margin-top: 2rem;
+    }
+
+    .TilCreateTagBox{
+        margin-top: 1rem;
+    }
+
     .h1{
         margin: 0;
         margin-bottom: 3%;
@@ -41,6 +50,7 @@
         }
     }
     .TilCreateContentBox{
+        margin-top: 1rem;
         margin-bottom: 1rem;
         width: 100%;
         height: auto;

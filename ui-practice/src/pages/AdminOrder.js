@@ -23,7 +23,7 @@ const AdminOrder = () => {
 
     const read_OrderList = async() => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/orders?page=${pageCnt-1}&size=${pageSize}&sort=id,desc`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/admin/orders?page=${pageCnt-1}&size=${pageSize}&sort=id,desc`;
             const response = await axios.get(url,{
                 headers: {
                     Authorization: `Bearer ${getCookie('accessToken')}`

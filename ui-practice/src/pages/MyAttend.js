@@ -59,7 +59,6 @@ const MyAttend = () => {
             });
             if(response.status === 200){
                 let attend_list = response.data.data;
-                console.log(attend_list);
                 setMyAttendDayList(attend_list);
                 for(let i=0; i < attend_list.length; i++){
                     let formatDate = dayjs(attend_list[i].createDate).format("YYYY-MM-DD");
@@ -78,17 +77,25 @@ const MyAttend = () => {
     
     const addDot = ({ date }) => {
         // 해당 날짜(하루)에 추가할 컨텐츠의 배열
-        const contents = [];
-        // date(각 날짜)가  리스트의 날짜와 일치하면 해당 컨텐츠 추가
-        myAttendDayList?.map((day) =>{
-            let formatDate = dayjs(day.createDate).format('YYYY-MM-DD');
+        // const contents = [];
+        // // date(각 날짜)가  리스트의 날짜와 일치하면 해당 컨텐츠 추가
+        // myAttendDayList?.map((day) =>{
+        //     let formatDate = dayjs(day.createDate).format('YYYY-MM-DD');
+        //     if(dayjs(formatDate).isSame(date)){
+        //         contents.push(
+        //             <BsFillCheckCircleFill key={day.attendanceId} className="check"/>
+        //         );
+        //         return <BsFillCheckCircleFill key={day.attendanceId} className="check"/>
+        //     }
+        // });
+        date = dayjs(date).format('YYYY-MM-DD');
+        for(let i=0; i < myAttendDayList.length; i++){
+            let formatDate = dayjs(myAttendDayList[i].createDate).format('YYYY-MM-DD');
             if(dayjs(formatDate).isSame(date)){
-                contents.push(
-                    <BsFillCheckCircleFill key={day.attendanceId} className="check"/>
-                );
+                return <BsFillCheckCircleFill key={myAttendDayList[i].attendanceId} className="check"/>
             }
-        });
-        return <div>{contents}</div>; // 각 날짜마다 해당 요소가 들어감
+        }
+        // return <div>{contents}</div>; // 각 날짜마다 해당 요소가 들어감
     };
 
     useEffect(()=>{

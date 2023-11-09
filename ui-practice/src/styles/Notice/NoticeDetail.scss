@@ -5,6 +5,7 @@
     width: 1080px;
     height: auto;
     margin: auto;
+
     .NoticeDetailHeader{
         width: 100%;
         margin: auto;
@@ -12,16 +13,18 @@
         margin-top: 3%;
         border-bottom: 0.1rem solid #D2D4D9;
         font-weight: 600;
+
         .NoticeCategory{
             margin: 0%;
             font-size: large;
             color: #757575;
         }
+
         .NoticeHeaderBox{
             display: flex;
             align-items: center;
             height: 6rem;
-            margin: 0%;
+
             .NoticeHeaderTitle{   
                 display: flex;
                 align-items: center;
@@ -29,6 +32,7 @@
                 height: 100%;
                 margin: 0%;
             }
+
         }
 
         .NoticeDetailInfo{
@@ -37,7 +41,8 @@
             width: 100%;
             height: 3rem;
             padding-bottom: 0.5rem;
-            .NoticeMyProfile{
+
+            .NoticeDetailProfile{
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -49,19 +54,22 @@
                 color: white;
                 margin-right: 1%;
             }
-            .NoticeWriter{
+
+            .NoticeDetailWriter{
                 display: flex;
                 align-items: center;
                 color: #424242;
                 font-size: large;
             }
+
             .NoticeEyeIcon{
                 margin-top: auto;
                 margin-bottom: auto;
                 margin-left: auto;
                 width: 2%;
-                height:  90%;
+                height: 90%;
             }
+
             .NoticeWatchCnt{
                 display: flex;
                 align-items: center;
@@ -69,6 +77,7 @@
                 margin-right: 2%;
                 font-size: 1.125rem;
             }
+            
             .NoticeTime{
                 display: flex;
                 align-items: center;

@@ -7,7 +7,7 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 0.1rem solid #D2D4D9;
-    transform : rotate(0.04deg); 
+    
     .CommentItemHeader{
         display: flex;
         align-items: center;
@@ -29,6 +29,7 @@
             align-items: center;
             justify-content: center;
             margin-left: 0.5rem;
+            font-weight: bold;
         }
     }
 

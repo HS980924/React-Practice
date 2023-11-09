@@ -28,7 +28,7 @@ const TilEdit = () =>{
     }
 
     const onHandleCancel = () => {
-        navigate('/notice')
+        navigate('/til')
     }
 
     const read_TilInfo = async() => {

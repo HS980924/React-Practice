@@ -75,7 +75,7 @@ const NoticeDetail = () =>{
 
     const delete_NoticeItem = async() => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/posts/${postId}`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/admin/posts/${postId}`;
             const response = await axios.delete(url,{
                 headers: {
                     Authorization: `Bearer ${getCookie('accessToken')}`
@@ -121,8 +121,8 @@ const NoticeDetail = () =>{
                     }
                 </div>
                 <div className="NoticeDetailInfo">
-                    <div className='NoticeMyProfile'>{noticeInfo?.profile}</div>
-                    <div className='NoticeWriter'>{noticeInfo?.writerName}</div>
+                    <img src={noticeInfo?.user?.writerProfileImg} alt="프로필" className="NoticeDetailProfile"/>
+                    <div className='NoticeDetailWriter'>{noticeInfo?.user?.writerName}</div>
                     {/* <AiOutlineEye className="NoticeEyeIcon"/>
                     <div className='NoticeWatchCnt'>{noticeInfo?.cnt}</div> */}
                     <div className='NoticeTime'>{noticeTime(noticeInfo?.createDate)}</div>

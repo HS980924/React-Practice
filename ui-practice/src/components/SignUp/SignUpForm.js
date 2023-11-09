@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 import '../../styles/SignUp/SignUpForm.scss';
-import { getCookie, tokenDecode } from '../../util/auth';
+import { getCookie, removeCookie, tokenDecode } from '../../util/auth';
 import { uploadFile } from '../../util/s3Upload';
 
 
@@ -83,7 +83,7 @@ const SignUpForm = () =>{
                 "email": email,
                 "profileImgUrl": imgUrl ? imgUrl : res.data.avatar_url,
             };
-            const url = `${process.env.REACT_APP_API_SERVER}/api/users/infoform`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/auth/users/addinfo`;
             const response = await axios.post(url,userInfo,{
                 headers:{ 
                     Authorization: `Bearer ${getCookie('accessToken')}`,
@@ -91,6 +91,8 @@ const SignUpForm = () =>{
                 withCredentials:true
             });
             if(response.status === 200){
+                console.log(response);
+                removeCookie('accessToken');
                 alert('회원 정보가 등록되었습니다.');
                 navigate('/');
             }else{

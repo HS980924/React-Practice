@@ -14,6 +14,7 @@ import Footer from "../components/Footer";
 
 import '../styles/Event/Event.scss';
 import '../styles/Event/Calendar.scss';
+import { getCookie } from "../util/auth";
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
@@ -43,7 +44,12 @@ const Event = () => {
     const read_eventData = async() =>{
         try{
             const url = `${process.env.REACT_APP_API_SERVER}/api/events/${selectedYear}/${selectedMonth}`;
-            const response = await axios.get(url,{withCredentials:true});
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials:true
+            });
             if(response.status === 200){
                 setEventApiData(response.data.data);
             }else{
@@ -51,6 +57,7 @@ const Event = () => {
             }
         }catch(e){
             alert(e.response.data.message);
+            // alert(e.response.data.error);
             navigate('/error');
         }
     }
@@ -68,7 +75,12 @@ const Event = () => {
         try{
             // 모달창 띄우고
             const url = `${process.env.REACT_APP_API_SERVER}/api/events/${id}`;
-            const response = await axios.delete(url,{withCredentials:true});
+            const response = await axios.delete(url,{
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`
+                },
+                withCredentials:true
+            });
             if(response.status === 200){
                 // setTodos(todos.filter(event => event.eventId !== id));
                 setEventApiData(eventApiData => eventApiData.filter(event => event.eventId !== id));
@@ -121,7 +133,6 @@ const Event = () => {
         // 해당 날짜(하루)에 추가할 컨텐츠의 배열
         const contents = [];
         // date(각 날짜)가  리스트의 날짜와 일치하면 해당 컨텐츠 추가
-        let key;
         date = dayjs(date).format('YYYY-MM-DD');
         for(let i=0; i < eventApiData.length; i++){
             let sd = dayjs(eventApiData[i].eventStartDate).format('YYYY-MM-DD');
@@ -131,8 +142,6 @@ const Event = () => {
                     <div key={eventApiData[i].eventId} className="dot"/>
                 );
                 return <div key={eventApiData[i].eventId} className="dot"/>
-                key = eventApiData[i].eventId;
-                break;
             }
         }
         

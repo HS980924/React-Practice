@@ -16,7 +16,7 @@ const AdminUserItem = ({userInfo}) => {
 
     const post_userRole = async() => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/admin/users/role/${userInfo?.githubId}`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/users/roles/${userInfo?.githubId}`;
             const data = {
                 role: (userInfo?.role === "ROLE_ADMIN") ? "ROLE_USER" : "ROLE_ADMIN",
             };

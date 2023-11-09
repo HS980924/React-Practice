@@ -45,7 +45,7 @@ const AdminShop = () => {
 
     const read_ItemList = async() => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/sale-items`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/items`;
             const response = await axios.get(url,{
                 headers: {
                     Authorization: `Bearer ${getCookie('accessToken')}`
@@ -70,7 +70,7 @@ const AdminShop = () => {
     
     const onRemove = async(id) => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/sale-items/${id}`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/admin/items/${id}`;
             const response = await axios.delete(url,{
                 headers:{
                     Authorization: `Bearer ${getCookie('accessToken')}`,
@@ -95,13 +95,11 @@ const AdminShop = () => {
 
     useEffect(()=>{
         read_ItemList();
-        setIsAdmin(isCheckAdmin());
+        if(!isCheckAdmin()){
+            navigate('/error');
+        }
     },[pageCnt]);
 
-    
-    if(!isAdmin){
-        navigate('/error');
-    }
     return(
         <>
         <div className="AdminShopContainer">

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineCancel } from 'react-icons/md';
+import axios from "axios";
+
+import { uploadFileList } from '../util/s3Upload';
+import { getCookie, isCheckAdmin } from '../util/auth';
 
 import TextEditor from '../components/TextEditor';
 import RegistButton from '../components/RegistButton';
-import { getCookie, isCheckAdmin } from '../util/auth';
-
-import axios from "axios";
-
-import '../styles/Notice/NoticeCreate.scss';
 import Title from '../components/Title/Title';
 import Footer from '../components/Footer';
-import { uploadFileList } from '../util/s3Upload';
+
+import '../styles/Notice/NoticeCreate.scss';
 
 const NoticeCreate = () =>{
 
@@ -64,7 +64,8 @@ const NoticeCreate = () =>{
                     content:content,
                     fileUrl: fileUrl,
                 }
-                const url = `${process.env.REACT_APP_API_SERVER}/api/posts`;
+                console.log(postData);
+                const url = `${process.env.REACT_APP_API_SERVER}/api/admin/posts`;
                 const response = await axios.post(url,postData,{
                     headers: {
                         Authorization: `Bearer ${getCookie('accessToken')}`

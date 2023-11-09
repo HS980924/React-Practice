@@ -45,10 +45,10 @@ const TilItem = ({tilInfo, onRemove, myInfo}) =>{
     return(
         <div className={isClosed ? "TilItemBox": "TilItemBox2"}>
             <div className="TilHeaderBox">
-                <img src={tilInfo?.userImg} alt="프로필" className='Profile'/>
+                <img src={tilInfo?.user?.writerProfileImg} alt="프로필" className='Profile'/>
                 <div className="TilDetailTile">{tilInfo?.title}</div>
                 {
-                    tilInfo?.userId === myInfo?.userId ?
+                    tilInfo?.userId === myInfo?.user?.writerId ?
                     <div className="TilButtons">
                         <div className="EditButton" onClick={()=>onEditTIL(tilInfo?.tilId)}>
                             <AiTwotoneEdit/>

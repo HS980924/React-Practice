@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TextEditor from '../components/TextEditor';
-import RegistButton from '../components/RegistButton';
+import axios from 'axios';
 
 import { getCookie } from '../util/auth';
-import axios from 'axios';
+
+import TextEditor from '../components/TextEditor';
+import RegistButton from '../components/RegistButton';
+import Footer from '../components/Footer';
+import Title from '../components/Title/Title';
 
 import '../styles/Til/TilCreate.scss';
 
@@ -25,7 +28,7 @@ const TilCreate = () =>{
     }
 
     const onHandleCancel = () => {
-        navigate('/notice')
+        navigate('/til')
     }
 
     const post_TilInfo = async() => {
@@ -62,30 +65,33 @@ const TilCreate = () =>{
     };
 
     return(
-        <div className="TilCreateCotainer">
-            <h1 className='h1'>TIL 작성</h1>
-            <div>
-                <p className='p'>제목</p>
-                <input
-                    placeholder='제목을 입력해주세요.'
-                    className='TilCreateTitle'
-                    onChange={onHandleTitle}/>
+        <>
+            <div className="TilCreateCotainer">
+                <Title title={"TIL 작성"}/>
+                <div className=' TilCreateTitleBox'>
+                    <p className='p'>제목</p>
+                    <input
+                        placeholder='제목을 입력해주세요.'
+                        className='TilCreateTitle'
+                        onChange={onHandleTitle}/>
+                </div>
+                <div className='TilCreateTagBox'>
+                    <p className='p'>태그</p>
+                    <input 
+                        placeholder='태그를 입력해주세요. (예: java, react)'
+                        className='TilCreateTag'
+                        onChange={onHandleTag}/>
+                </div>
+                <div className='TilCreateContentBox'>
+                    <p className='p'>본문</p>
+                    <TextEditor value={content} setValue={setContent}/>
+                </div>
+                <RegistButton 
+                    onHandleCancel={onHandleCancel}
+                    onHandleSave={post_TilInfo}/>
             </div>
-            <div>
-                <p  className='p'>태그</p>
-                <input 
-                    placeholder='태그를 입력해주세요. (예: java, react)'
-                    className='TilCreateTag'
-                    onChange={onHandleTag}/>
-            </div>
-            <div className='TilCreateContentBox'>
-                <p className='p'>본문</p>
-                <TextEditor value={content} setValue={setContent}/>
-            </div>
-            <RegistButton 
-                onHandleCancel={onHandleCancel}
-                onHandleSave={post_TilInfo}/>
-        </div>
+            <Footer/>
+        </>
     );
 }
 

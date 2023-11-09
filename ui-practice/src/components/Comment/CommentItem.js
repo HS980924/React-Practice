@@ -7,8 +7,8 @@ const CommentItem = ({commentInfo}) =>{
     return(
         <div className="CommentItemBox">
             <div className="CommentItemHeader">
-                <div className='CommentItemProfile'>{commentInfo?.profile}</div>
-                <div className='CommentItemWriter'>{commentInfo?.username}</div>
+                <img src={commentInfo?.user?.writerProfileImg} className='CommentItemProfile' alt="프로필"/>
+                <div className='CommentItemWriter'>{commentInfo?.user?.writerName}</div>
             </div>
             <div className="CommentItemContents">{commentInfo?.content}</div>
             <div className="CommentTime">{timeTrans(commentInfo?.createdDate)}</div>

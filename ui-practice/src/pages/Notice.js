@@ -24,7 +24,7 @@ const Notice = () =>{
 
     const read_NoticeList = async() => {
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/posts?pageNumber=${selectedPage-1}&pageSize=${pageSize}`
+            const url = `${process.env.REACT_APP_API_SERVER}/api/posts?pageNumber=${selectedPage-1}&pageSize=${pageSize}&sort=id,desc`
             const response = await axios.get(url,
                 {
                     headers:{
@@ -32,8 +32,12 @@ const Notice = () =>{
                     },
                     withCredentials:true
                 });
-            setNoticeList([...response.data.data.content]);
-            setTotalItemCnt(response.data.data.totalElements);
+            if(response.status === 200){
+                setNoticeList([...response.data.data.content]);
+                setTotalItemCnt(response.data.data.totalElements);
+            }else{
+                alert(response.data.message);
+            }
             // setIsLodding(false);
         }catch(e){
             alert(e.response.data.message);

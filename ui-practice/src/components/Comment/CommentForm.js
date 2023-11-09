@@ -132,6 +132,7 @@ const CommentForm = ({id, myInfo}) =>{
                         cols={100}
                         maxLength={500}
                         placeholder='자유로운 댓글을 남겨주세요.'
+                        value={comment || ""}
                         onChange={(e)=>onHandleComment(e)}
                         className="CommentContents"/>
                     <div className="CommentLengthBox">

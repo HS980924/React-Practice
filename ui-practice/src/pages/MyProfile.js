@@ -153,7 +153,7 @@ const MyProfile = () => {
 
     useEffect(()=>{
         read_myInfomation();
-        // read_myPoint();
+        read_myPoint();
     },[]);
 
     return(
