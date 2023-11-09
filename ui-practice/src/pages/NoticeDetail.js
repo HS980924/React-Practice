@@ -1,5 +1,6 @@
 import { useState, useEffect  } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { AiOutlineDownload } from "react-icons/ai";
 // import { AiOutlineEye } from "react-icons/ai";
 import parse from 'html-react-parser';
 import axios from "axios";
@@ -7,7 +8,7 @@ import axios from "axios";
 import CommentForm from "../components/Comment/CommentForm";
 import SideMenu from "../components/SideMenu";
 
-import { getCookie } from "../util/auth";
+import { getCookie, isCheckAdmin } from "../util/auth";
 import { noticeTime } from "../util/time";
 
 import '../styles/Notice/NoticeDetail.scss';
@@ -21,8 +22,9 @@ const NoticeDetail = () =>{
     const postId = pathList[pathList.length-1];
 
     const [ noticeInfo, setNoticeInfo ] = useState(null);
-    const [ postFile, setPostFile ] = useState(null);
+    const [ fileList, setFileList ] = useState(null);
     const [ myInfo, setMyInfo ] = useState(null);
+    const [ isAdmin, setIsAdmin ] = useState(false);
 
     
     const read_NoticeItem = async() => {
@@ -36,7 +38,7 @@ const NoticeDetail = () =>{
             });
             if(response.status === 200){
                 setNoticeInfo(response.data.data);
-                console.log(response.data);
+                setFileList(response.data.data.fileUrl?.split(','));
             }else{
                 alert('데이터 통신에 실패하였습니다.');
                 navigate('/error');
@@ -101,6 +103,7 @@ const NoticeDetail = () =>{
     useEffect(()=>{
         read_NoticeItem();
         read_myInfo();
+        setIsAdmin(isCheckAdmin());
     },[]);
 
     return(
@@ -110,10 +113,11 @@ const NoticeDetail = () =>{
                 <div className="NoticeHeaderBox">
                     <h1 className="NoticeHeaderTitle">{noticeInfo?.title}</h1>
                     {
-                        myInfo?.role !== 'ROLE_USER' ? <></> : 
+                        isAdmin ?  
                         <SideMenu 
                             onToggle={onToggle}
-                            onRemove={delete_NoticeItem}/>
+                            onRemove={delete_NoticeItem}/>  
+                        : <></>
                     }
                 </div>
                 <div className="NoticeDetailInfo">
@@ -127,6 +131,22 @@ const NoticeDetail = () =>{
             <div className="NoticeContents">
                 {parse(`${noticeInfo?.content}`)}
             </div>
+            {
+                fileList ?
+                <div className="NoticeFileBox">
+                {
+                    fileList?.map(fileUrl => 
+                        <div className="NoticeFileItem" key={fileUrl}>
+                            <div className="NoticeFileName">{decodeURI(fileUrl.split('_')[1])}</div>
+                            <Link to={fileUrl} className="FileDownload">
+                                <AiOutlineDownload className="FileDownloadIcon"/>
+                            </Link>
+                        </div>
+                        
+                    )
+                }
+                </div> : <></>
+            }
             {
                 postId ? <CommentForm id={postId} myInfo={myInfo} /> : <></>
             }

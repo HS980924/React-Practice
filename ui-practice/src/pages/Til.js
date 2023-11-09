@@ -36,6 +36,23 @@ const Til = () => {
         setSearch(e.target.value);
     }
 
+    const searchClick = () => {
+        if(search){
+            alert('아직 기능이 구현되지 않았습니다.');
+            setSearch(null);
+            // navigate(`/search?query=${searchContent}`);
+        }
+    }
+    
+    const handleKeyDown = (e) =>{
+        if(e.key === 'Enter' && search){
+            alert('아직 기능이 구현되지 않았습니다.');
+            setSearch(null);
+            // navigate(`/search?query=${searchContent}`);
+        }
+    }
+    
+
     const read_tilDataAPi = async() => {
         try{
             const url = `${process.env.REACT_APP_API_SERVER}/api/tils?page=${pageNumber}&size=${pageSize}&sort=id,desc`;
@@ -137,10 +154,11 @@ const Til = () => {
             <CreateButton link={'/til/create'}/>
             <div className="SearchBox">
                 <div className="SearchBar">
-                    <AiOutlineSearch className="SearchIcon"/>
+                    <AiOutlineSearch className="SearchIcon" onClick={()=>searchClick()}/>
                     <input 
                         className="SearchInput"
-                        onChange={onHandleSearch}/>
+                        onChange={onHandleSearch}
+                        onKeyDown={handleKeyDown}/>
                 </div>
             </div>
             <div className="TilListBox">

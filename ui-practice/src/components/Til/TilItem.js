@@ -31,7 +31,7 @@ const TilItem = ({tilInfo, onRemove, myInfo}) =>{
     const checkOverContents = () =>{
         const contentLine = tilInfo?.content.split('/');
         const length = contentLine.length;
-        if (length >= 7){
+        if (length >= 8){
             setIsOverContent(true);
         }else{
             setIsOverContent(false);

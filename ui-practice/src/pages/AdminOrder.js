@@ -17,43 +17,9 @@ const AdminOrder = () => {
     const pageSize = 10;
     const navigate = useNavigate();
 
-    const dummy = [
-        {
-            orderId: "1",
-            user: "최형순",
-            item: {
-                itemId: 1,
-                itemName : "아메리카노",
-                point: 3000,
-                itemDescription: "맛있는 아메리카노",
-                imgUrl: "test.com",
-            },
-            targetUser: "user",
-            useStatus: "ser",
-            createDate: "2023-10-20",
-            modifiedDate:"2023-10-20",
-        },
-        {
-            orderId: "2",
-            user: "최형순",
-            item: {
-                itemId: 1,
-                itemName : "아메리카노",
-                point: 3000,
-                itemDescription: "맛있는 아메리카노",
-                imgUrl: "test.com",
-            },
-            targetUser: "user",
-            useStatus: "uss",
-            createDate: "2023-10-20",
-            modifiedDate:"2023-10-20",
-        },
-    ]
-
     const [ pageCnt, setPageCnt ] = useState(1);
     const [ totalItemCnt, setTotalItemCnt ] = useState(2);
-    const [ orderList, setOrderList ] = useState(dummy);
-    // const [ orderList, setOrderList ] = useState([]);
+    const [ orderList, setOrderList ] = useState([]);
 
     const read_OrderList = async() => {
         try{
@@ -107,7 +73,7 @@ const AdminOrder = () => {
         if(!isAdmin){
             navigate('/error');
         }
-        // read_OrderList();
+        read_OrderList();
     },[pageCnt]);
 
     return(

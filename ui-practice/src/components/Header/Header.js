@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
-import { setCookie, removeCookie, checkLogin, getCookie, tokenDecode } from '../util/auth';
+import { setCookie, removeCookie, checkLogin, getCookie, tokenDecode } from '../../util/auth';
 
-import LoginModal from './LoginModal';
-import Dropdown from './Header/Dropdown';
+import LoginModal from '../Modal/LoginModal';
+import Dropdown from './Dropdown';
 
 import '../styles/Header/Header.scss';
 import axios from 'axios';
@@ -51,13 +51,17 @@ const Header = () => {
 
     const search = () => {
         if(searchContent){
-            navigate(`/search?query=${searchContent}`);
+            alert('아직 기능이 구현되지 않았습니다.');
+            setSearchContent(null);
+            // navigate(`/search?query=${searchContent}`);
         }
     }
     
     const handleKeyDown = (e) =>{
         if(e.key === 'Enter' && searchContent){
-            navigate(`/search?query=${searchContent}`);
+            alert('아직 기능이 구현되지 않았습니다.');
+            setSearchContent(null);
+            // navigate(`/search?query=${searchContent}`);
         }
     }
     
@@ -80,6 +84,7 @@ const Header = () => {
         const accessToken = searchParams.get('accessToken');
         if(accessToken){
             let payload = tokenDecode(accessToken);
+            console.log(payload);
             const options = {
                 expires: new Date(payload?.exp*1000),
             }
@@ -139,7 +144,8 @@ const Header = () => {
                 <div className='SearchBarBox'>
                     <AiOutlineSearch className="SearchIcon" onClick={()=>search()}/>
                     <input className='SearchInput' 
-                        placeholder="검색" 
+                        placeholder="검색"
+                        value={searchContent || ""}
                         onChange={onChageSearch}
                         onKeyDown={handleKeyDown}
                         />
@@ -160,7 +166,7 @@ const Header = () => {
                     :
                     <div className='ButtonBox'>
                         <div className='LoginButton' onClick={()=>onHandleLoginModal()}>로그인</div>
-                        <Link to='/signup' className='SignUpButton'>회원가입</Link>
+                        {/* <Link to='/signup' className='SignUpButton'>회원가입</Link> */}
                     </div>
                 }
             </div>

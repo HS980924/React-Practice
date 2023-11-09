@@ -22,7 +22,7 @@ const Shop = () => {
 
     const read_ItemList = async() =>{
         try{
-            const url = `${process.env.REACT_APP_API_SERVER}/api/sale-items`;
+            const url = `${process.env.REACT_APP_API_SERVER}/api/items`;
             const response = await axios.get(url,{
                 headers:{
                     Authorization: `Bearer ${getCookie('accessToken')}`
@@ -36,7 +36,8 @@ const Shop = () => {
                 navigate('/error');
             }
         }catch(e){
-            alert(e.response.data.message);
+            // alert(e.response.data.message);
+            alert(e.message);
             navigate('/error');
         }
     }
@@ -106,7 +107,7 @@ const Shop = () => {
 
     useEffect(()=>{
         read_ItemList();
-        read_MyPoint();
+        // read_MyPoint();
     },[]);
 
     return(

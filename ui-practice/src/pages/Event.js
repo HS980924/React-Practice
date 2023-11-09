@@ -48,7 +48,6 @@ const Event = () => {
                 setEventApiData(response.data.data);
             }else{
                 alert(response.data.message);
-                navigate('/error');
             }
         }catch(e){
             alert(e.response.data.message);
@@ -73,11 +72,12 @@ const Event = () => {
             if(response.status === 200){
                 // setTodos(todos.filter(event => event.eventId !== id));
                 setEventApiData(eventApiData => eventApiData.filter(event => event.eventId !== id));
+                alert('이벤트가 삭제되었습니다.');
             }else{
-                // 에러 모달창 띄위기
+                alert(response.data.message);
             }
         }catch(e){
-            console.log(e);
+            alert(e.response.data.message);
         }
     }
 

@@ -9,6 +9,7 @@ import { getCookie } from '../util/auth';
 import axios from "axios";
 
 import '../styles/Notice/NoticeCreate.scss';
+import Title from '../components/Title/Title';
 
 const NoticeCreate = () =>{
 
@@ -111,8 +112,8 @@ const NoticeCreate = () =>{
 
     return(
         <div className="NoticeCreateCotainer">
-            <h1 className='h1'>공지사항 작성</h1>
-            <div>
+            <Title title={'공지사항 작성'}/>
+            <div className='NoticeTitleBox'>
                 <p className='p'>제목</p>
                 <input
                     defaultValue={title || ''}

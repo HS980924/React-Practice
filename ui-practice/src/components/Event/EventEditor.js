@@ -93,6 +93,7 @@ const EventEditor = ({canselAddEvent, isAddEventView, eventInfo, saveEvent}) =>{
                         withCredentials:true
                     });
                     if (response.status === 200){
+                        alert('이벤트가 등록되었습니다.');
                         saveEvent(response.data.data);
                         canselAddEvent();
                     }
@@ -104,6 +105,7 @@ const EventEditor = ({canselAddEvent, isAddEventView, eventInfo, saveEvent}) =>{
                         withCredentials:true
                     });
                     if(response.status === 200){
+                        alert('이벤트가 등록되었습니다.');
                         saveEvent(response.data.data);
                         canselAddEvent();
                     }

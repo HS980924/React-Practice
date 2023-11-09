@@ -45,10 +45,11 @@ const CommentForm = ({id, myInfo}) =>{
                 );
                 if(response.status === 200){
                     alert('댓글 등록 성공');
-                    // const result = [response.data.data]
-                    // setComments(comments => result.concat(comments));
-                    // setTotalCommentCnt(totalCommentCnt+1);
-                    window.location.reload();
+                    const result = [response.data.data]
+                    setComments(comments => result.concat(comments));
+                    setTotalCommentCnt(totalCommentCnt+1);
+                    setComment(null);
+                    // window.location.reload();
                 }else{
                     alert('댓글 목록을 가져오기 못했습니다.');
                 }
@@ -122,7 +123,7 @@ const CommentForm = ({id, myInfo}) =>{
         <>
             <div className="CommentFormContainer">
                 <div className="CommentMyInfo">
-                    <div className="CommentProfile">{myInfo?.profileImgUrl}</div>
+                    <img src={myInfo?.profileImgUrl} className="CommentProfile" alt='profile'/>
                     <div className="CommentWriter">{myInfo?.username}</div>
                 </div>
                 <div className='CommentInfoBox'>

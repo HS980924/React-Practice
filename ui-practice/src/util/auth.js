@@ -1,4 +1,4 @@
-import {Cookies} from 'react-cookie';
+import { Cookies } from 'react-cookie';
 import { jwtDecode } from "jwt-decode";
 
 const cookies = new Cookies();
@@ -12,7 +12,7 @@ export const getCookie = (name) => {
 }
 
 export const removeCookie = (name) => {
-    return cookies.remove(name);
+    cookies.remove(name, {path:"/"});
 }
 
 export const checkLogin = (name) => {

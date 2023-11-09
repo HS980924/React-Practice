@@ -16,37 +16,10 @@ const MyAttend = () => {
 
     const navigate = useNavigate();
 
-    const dummyData = [
-        {
-            "attendancesId":1,
-            "createDate":"2023-07-12"
-        },//생략
-        {
-            "attendancesId":2,
-            "createDate":"2023-07-13"
-        },
-        {
-            "attendancesId":3,
-            "createDate":"2023-07-14"
-        },
-        {
-            "attendancesId":4,
-            "createDate":"2023-07-17"
-        },
-        {
-            "attendancesId":5,
-            "createDate":"2023-07-18"
-        },
-        {
-            "attendancesId":6,
-            "createDate":"2023-07-19"
-        }
-    ];
-
     const [ today, setToday ] = useState(dayjs(new Date()).format("YYYY-MM-DD"));
     const [ year, setYear ] = useState(dayjs(new Date()).format('YYYY'));
     const [ selectedMonth, setSelectedMonth ] = useState(dayjs(new Date()).format("MM"));
-    const [ myAttendDayList, setMyAttendDayList]  = useState(dummyData);
+    const [ myAttendDayList, setMyAttendDayList]  = useState([]);
     const [ checkedToday, setCheckedToday ] = useState(false);
 
     const onChangeSelectedMonth = (e) => {
@@ -86,6 +59,7 @@ const MyAttend = () => {
             });
             if(response.status === 200){
                 let attend_list = response.data.data;
+                console.log(attend_list);
                 setMyAttendDayList(attend_list);
                 for(let i=0; i < attend_list.length; i++){
                     let formatDate = dayjs(attend_list[i].createDate).format("YYYY-MM-DD");
@@ -96,7 +70,7 @@ const MyAttend = () => {
                 }
             }
         }catch(e){
-            alert('토큰 만료 시간이 지났습니다');
+            alert(e.response.data.message);
             navigate('/');
         }
     }

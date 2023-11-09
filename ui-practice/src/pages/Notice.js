@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { BiSolidPencil } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 import NoticeItem from "../components/Notice/NoticeItem";
 import CreateButton from "../components/CreateButton";
@@ -57,8 +56,6 @@ const Notice = () =>{
     return(
         <>
             <div className="NoticeContainer">
-                {/* <Title title='공지사항'/>
-                <CreateButton link={'/notice/create'}/> */}
                 <div className="NoticeListBox">
                     <Title title='공지사항'/>
                     <CreateButton link={ isAdmin ? '/notice/create' : null}/>
